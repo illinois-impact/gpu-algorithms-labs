@@ -10,7 +10,7 @@ Download the rai binary for your platform.
 You will probably use it for development, and definitely use it for submission.
 
 
-| Operating System | Architecture | Stable Version (0.2.57) Link                                                             | Beta Version (0.2.31) Link                                                              |
+| Operating System | Architecture | Stable Version (0.2.57) Link                                                             | Beta Version (0.2.57) Link                                                              |
 | ---------------- | ------------ | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | Linux            | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.57/linux-amd64.tar.gz)   | [URL](https://github.com/rai-project/rai/releases/download/latest/linux-amd64.tar.gz)   |
 | OSX/Darwin       | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.57/darwin-amd64.tar.gz)  | [URL](https://github.com/rai-project/rai/releases/download/latest/darwin-amd64.tar.gz)  |
