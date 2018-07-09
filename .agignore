@@ -1,0 +1,6 @@
+.git
+/tmp
+/vendor
+/build
+/third_party
+/node_modules

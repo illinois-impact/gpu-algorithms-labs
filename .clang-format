@@ -1,0 +1,29 @@
+---
+Language:        Cpp
+BasedOnStyle:  LLVM
+ColumnLimit:     140
+AccessModifierOffset: -2
+BreakBeforeBraces: Attach
+AlignTrailingComments: true
+AlignEscapedNewlinesLeft: false
+AlignConsecutiveAssignments: true
+Cpp11BracedListStyle: true
+DerivePointerAlignment: true
+PointerAlignment: Left
+ExperimentalAutoDetectBinPacking: true
+IndentWrappedFunctionNames: true
+NamespaceIndentation: Inner
+SpaceAfterCStyleCast: true
+SpacesInAngles: false
+AlignOperands: true
+AllowShortBlocksOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakTemplateDeclarations: true
+IndentCaseLabels: true
+SpacesBeforeTrailingComments: 1
+Standard:        Cpp11
+TabWidth:        4
+UseTab:          Never
+...
