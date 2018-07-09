@@ -4,7 +4,7 @@
 
 Clone this repository to get the project folder.
 
-    git clone https://github.com/illinois-impact/ece408_project.git
+    git clone https://github.com/illinois-impact/pumps.git
 
 Download the rai binary for your platform.
 You will probably use it for development, and definitely use it for submission.
