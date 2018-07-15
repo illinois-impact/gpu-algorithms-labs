@@ -12,8 +12,6 @@ resources:
   cache: false
 commands:
   build:
-    - nvidia-smi
     - cmake /src
     - make
-    - /bin/sh -e set
     - ./devicequery
