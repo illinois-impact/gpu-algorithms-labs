@@ -49,8 +49,6 @@ Your `.rai_profile` should look something like this (indented with tabs!)
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
 
 
-rai will run
-
 ## Labs
 
 One or more labs are going to be assigned for each day.
