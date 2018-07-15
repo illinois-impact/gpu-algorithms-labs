@@ -31,16 +31,84 @@ Your `.rai_profile` should look something like this (indented with tabs!)
 
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
 
+
+rai will run
+
 ## Labs
+
+One or more labs are going to be assigned for each day.
 
 - [Device Query](labs/device_query)
 - [Scatter](labs/scatter)
 - [Gather](labs/gather)
 - [Binning](labs/binning)
+- [Basic Convolution Layer](labs/basic_conv)
 
+
+For each lab you `cd` into that directory, `cd labs/device_query` for example, and run `rai -p .`
+
+The main code of each lab is in the `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
+
+_NOTE:_ You may need to use the absolute path if submitting from windows.
+
+## Profiling
+
+Profiling can be performed using `nvprof`. Place the following build commands in your `rai-build.yml` file
+
+```yaml
+    - >-
+      nvprof --cpu-profiling on --export-profile timeline.nvprof --
+      ./mybinary -i input1,input2 -o output
+    - >-
+      nvprof --cpu-profiling on --export-profile analysis.nvprof --analysis-metrics --
+      ./mybinary -i input1,input2 -o output
+```
+
+You could change the input and test datasets. This will output two files `timeline.nvprof` and `analysis.nvprof` which can be viewed using the `nvvp` tool (by performing a `file>import`). You will have to install the nvvp viewer on your machine to view these files.
+
+_NOTE:_ `nvvp` will only show performance metrics for GPU invocations, so it may not show any analysis when you only have serial code.
+
+You will need to install the nvprof viewer for the CUDA website and the nvprof GUI can be run without CUDA on your machine.
+
+
+## Utility Functions
+
+We provide a some helper utility functions in the `common/utils.hpp` file.
+
+### Verifying the Results
+
+Each lab contains the code to compute the golden (true) solution of the lab. We use [Catch2](https://github.com/catchorg/Catch2) to perform tests to verify the results are accurate within the error tollerance. You can read the [Catch2 tutorial](https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top) if you are interested in how this works.
+
+Subsets of the test cases can be run by executing a subset of the tests. We recomend running the first lab with `-h` option to understand what you can perform, but the rough idea is if you want to run a specific section (say `[inputSize:1024]`) then you pass `-c "[inputSize:1024]"` to the lab.
+
+### How to Time
+
+In `common/utils.hpp` a function called `timer_start/timer_stop` which allows you to get the current time at a high resolution. To measure the overhead of a function `f(args...)`, the pattern to use is:
+
+```{.cpp}
+timer_start(/* msg */ "calling the f(args...) function");
+f(args...);
+timer_stop();
+```
+
+This will print the time as the code is running
+
+### Checking Errors
+
+To check and throw CUDA errors, use the THROW_IF_ERROR function. This throws an error when a CUDA error is detected which you can catch if you need special handling of the error.
+
+```{.cpp}
+THROW_IF_ERROR(cudaMalloc((void **)&deviceW, wByteCount));
+```
+
+
+### Enabling Debug builds
+
+Within the `rai_build.yml` environment, run `cmake -DCMAKE_BUILD_TYPE=Debug /src` this will enable debugging mode. You may also want to pass the `-g -pg -lineinfo` option to the compiler.
 
 ## Offline Development
 
+You can use the docker image and or install CMake within a CUDA envrionment. Then run `cmake [lab]` and then `make`. We do not using your own machine, and we will not be debugging your machine/installation setup.
 
 ## Issues
 
