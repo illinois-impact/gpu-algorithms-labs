@@ -7,14 +7,12 @@
 
 __global__ void gpu_normal_kernel(float *in_val, float *in_pos, float *out,
                                   int grid_size, int num_in) {
-
   //@@ INSERT CODE HERE
 }
 
 __global__ void gpu_cutoff_kernel(float *in_val, float *in_pos, float *out,
                                   int grid_size, int num_in,
                                   float cutoff2) {
-
   //@@ INSERT CODE HERE
 }
 
@@ -23,7 +21,7 @@ __global__ void gpu_cutoff_binned_kernel(int *bin_ptrs,
                                          float *in_pos_sorted, float *out,
                                          int grid_size, float cutoff2) {
 
-  //@@ INSERT CODE HERE
+//@@ INSERT CODE HERE
 }
 
 /******************************************************************************
@@ -102,6 +100,9 @@ static void cpu_preprocess(float *in_val, float *in_pos,
                            int *bin_ptrs) {
 
   // Histogram the input positions
+  for (int binIdx = 0; binIdx < NUM_BINS; ++binIdx) {
+    bin_counts[binIdx] = 0;
+  }
   for (int inIdx = 0; inIdx < num_in; ++inIdx) {
     const int binIdx = (int)((in_pos[inIdx] / grid_size) * NUM_BINS);
     ++bin_counts[binIdx];
@@ -309,7 +310,7 @@ int eval(const int num_in, const int max, const int grid_size) {
   // -----------------------------------------------------
 
   const auto actual_output = compute_output(in_val_h, in_pos_h, num_in, grid_size);
-  verify(out_h, actual_output);
+  verify(actual_output, out_h);
 
   // Free memory
   // ------------------------------------------------------------

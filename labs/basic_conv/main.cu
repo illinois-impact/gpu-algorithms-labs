@@ -1,7 +1,6 @@
 #include "helper.hpp"
 
 
-// From book chapter Figure 16.4
 // Sequential code for the forward path of the convolution layer
 // You should not modify this code
 static void conv_forward_valid(const float *X, const shape &xdims, const float *W, const shape &wdims, float *Y,
@@ -84,7 +83,7 @@ __global__ void conv_forward_opt_kernel(const float *X, const shape xdims, const
   }
 
   //@@ YOUR CODE HERE!
-  
+
 }
 
 // Host code to configure baseline GPU kernel
@@ -102,13 +101,13 @@ static void convlayer_gpu_opt(const float *X, const shape &xdims, const float *W
 static int eval(const shape wDims, const shape xDims) {
 
   // Generate model
-  const auto conf_info = std::string("conv[wDims:") + std::to_string(wDims.num) + "," + 
-                                                      std::to_string(wDims.depth) + "," + 
-                                                      std::to_string(wDims.height) + "," + 
+  const auto conf_info = std::string("conv[wDims:") + std::to_string(wDims.num) + "," +
+                                                      std::to_string(wDims.depth) + "," +
+                                                      std::to_string(wDims.height) + "," +
                                                       std::to_string(wDims.width) +
-                                                      " xDims:" + std::to_string(xDims.num) + "," + 
-                                                      std::to_string(xDims.depth) + "," + 
-                                                      std::to_string(xDims.height) + "," + 
+                                                      " xDims:" + std::to_string(xDims.num) + "," +
+                                                      std::to_string(xDims.depth) + "," +
+                                                      std::to_string(xDims.height) + "," +
                                                       std::to_string(xDims.width) + "]";
   INFO("Running "  << conf_info);
 

@@ -14,4 +14,4 @@ commands:
   build:
     - cmake /src
     - make
-    - ./scatter Scatter
+    - ./scatter -a

@@ -39,47 +39,7 @@ You will check the output feature maps, Y (or out), after the forward propagatio
 
 Feel free to adjust the dataset sizes and values to test your implementation and experiment with various approaches.
 
-## Profiling
-
-Profiling can be performed using `nvprof`. Place the following build commands in your `rai-build.yml` file
-
-```yaml
-    - >-
-      nvprof --cpu-profiling on --export-profile timeline.nvprof -- ./mybinary
-    - >-
-      nvprof --cpu-profiling on --export-profile analysis.nvprof --analysis-metrics -- ./mybinary 
-```
-
-You could change the input and test datasets. This will output two files `timeline.nvprof` and `analysis.nvprof` which can be viewed using the `nvvp` tool (by performing a `file>import`). You will have to install the nvvp viewer on your machine to view these files.
-
-_NOTE:_ `nvvp` will only show performance metrics for GPU invocations, so it may not show any analysis when you only have serial code.
-
-## Timing
-
-In [`helper.hpp`](helper.hpp) a function called `now()` which allows you to get the current time at a high resolution. To measure the overhead of a function `f(args...)`, the pattern to use is:
-
-```cpp
-const auto tic = now();
-f(args...);
-const auto toc = now();
-const auto elapsed = std::chrono::duration<double, std::milli>(toc - tic).count();;
-std::cout << "Calling f(args...) took " << elapsed << "milliseconds\n";
-```
-
-You may also use the provided `timer_start()` and `timer_stop()` functions to measure the time of GPU operations.
-
-```cpp
-  timer_start( "Performing GPU Scatter computation");
-  s2g_gpu_scatter(deviceInput, deviceOutput, inputLength);
-  timer_stop();
-```
-
-## Utility Functions
-
-We provide a some helper utilities in the [`range.hpp`][rangehpp], [`shape.hpp`][shape.hpp], and [`common/utils.hpp`][common/utils.hpp] files.
-These utilities include the `range()` iterator, the `shape` class, and some CUDA error checking and logging functions.
-
-### Range For Loops
+## Range For Loops
 
 Throughout the serial code, we use the [`range.hpp`][rangehpp] to make the code easier to understand. Essentially,
 
@@ -98,22 +58,3 @@ for (const auto ii = 0; ii < N; ii++) {
 ```
 
 The use of range introduces some overhead and you might get better speed if you remove it's usage.
-
-### Checking Errors
-
-To check for CUDA errors, use `THROW_IF_ERROR` when calling CUDA runtime functions.
-
-```{.cpp}
-THROW_IF_ERROR(cudaFree(deviceData));
-```
-
-## Reporting Issues
-
-
-
-
-## License
-
-NCSA/UIUC © [Carl Pearson](cwpearson.github.io)
-
-[github issue manager]: https://github.com/illinois-impact/pumps/issues

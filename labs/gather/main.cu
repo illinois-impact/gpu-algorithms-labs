@@ -1,6 +1,4 @@
-
 #include "helper.hpp"
-
 
 __global__ void s2g_gpu_gather_kernel(uint32_t *in, uint32_t *out, int len) {
   //@@ INSERT KERNEL CODE HERE
@@ -8,13 +6,18 @@ __global__ void s2g_gpu_gather_kernel(uint32_t *in, uint32_t *out, int len) {
 
 
 static void s2g_cpu_gather(uint32_t *in, uint32_t *out, int len) {
-
-  //@@ INSERT CODE HERE
+  for (int outIdx = 0; outIdx < len; ++outIdx) {
+    int out_reg = 0;
+    for (int inIdx = 0; inIdx < len; ++inIdx) {
+      int intermediate = outInvariant(in[inIdx]);
+      out_reg += outDependent(intermediate, inIdx, outIdx);
+    }
+    out[outIdx] += out_reg;
+  }
 }
 
 
 static void s2g_gpu_gather(uint32_t *in, uint32_t *out, int len) {
-
   //@@ INSERT CODE HERE
 }
 
@@ -48,7 +51,6 @@ static int eval(int inputLength) {
   //////////////////////////////////////////
   timer_start("Performing GPU Gather computation");
   s2g_gpu_gather(deviceInput, deviceOutput, inputLength);
-  // cudaDeviceSynchronize();
   timer_stop();
 
   std::vector<uint32_t> hostOutput(inputLength);
@@ -63,8 +65,6 @@ static int eval(int inputLength) {
 
   cudaFree(deviceInput);
   cudaFree(deviceOutput);
-
-  // std::cout << ANSI_COLOR_YELLOW  << "========"  << ANSI_COLOR_RESET << "\n";
 
   return 0;
 }

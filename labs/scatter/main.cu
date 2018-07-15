@@ -1,6 +1,4 @@
-
 #include "helper.hpp"
-
 
 __global__ void s2g_gpu_scatter_kernel(uint32_t *in, uint32_t *out, int len) {
   //@@ INSERT KERNEL CODE HERE
@@ -17,7 +15,6 @@ static void s2g_cpu_scatter(uint32_t *in, uint32_t *out, int len) {
 }
 
 static void s2g_gpu_scatter(uint32_t *in, uint32_t *out, int len) {
-
   //@@ INSERT CODE HERE
 }
 
@@ -64,8 +61,6 @@ static int eval(int inputLength) {
 
   cudaFree(deviceInput);
   cudaFree(deviceOutput);
-
-  // std::cout << ANSI_COLOR_YELLOW  << "========"  << ANSI_COLOR_RESET << "\n";
 
   return 0;
 }
