@@ -1,20 +1,22 @@
 # PUMPS + AI 2018
 
-- [Setup](#setup)
+
+Welcome to the [PUMPS+AI 2018 summer school](http://pumps.bsc.es/). This page contains information about how to access and submit the labs.
+- [PUMPS + AI 2018](#pumps--ai-2018)
+- [Install and Setup](#install-and-setup)
 - [Labs](#labs)
-- [Code Development](#code-development)
-  - [Profiling](#profiling)
+- [Code Development Tools](#code-development-tools)
+  - [Timing the Code Sections](#timing-the-code-sections)
   - [Utility Functions](#utility-functions)
-    - [Verifying the Results](#verifying-the-results)
-    - [How to Time](#how-to-time)
+  - [Verifying the Results](#verifying-the-results)
     - [Checking Errors](#checking-errors)
+  - [Profiling](#profiling)
     - [Enabling Debug builds](#enabling-debug-builds)
   - [Offline Development](#offline-development)
   - [Issues](#issues)
   - [License](#license)
 
-
-# Setup
+# Install and Setup
 
 Clone this repository to get the project folder.
 
@@ -65,13 +67,13 @@ Some more info is available on the [Client Documentation Page](https://github.co
 
 _NOTE:_ You may need to use the absolute path if submitting from windows.
 
-# Code Development
+# Code Development Tools
 
 Throughout the summer school you'll be developing the labs. The folowing information is common through all the labs and might be helpful while developing.
 
 ## Timing the Code Sections
 
-It might be useful to figure out the time of each code section to identify the sbottleneck code. 
+It might be useful to figure out the time of each code section to identify the sbottleneck code.
 In `common/utils.hpp` a function called `timer_start/timer_stop` which allows you to get the current time at a high resolution.
 To measure the overhead of a function `f(args...)`, the pattern to use is:
 
