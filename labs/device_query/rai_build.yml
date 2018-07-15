@@ -1,0 +1,19 @@
+rai:
+  version: 0.2
+  # image: raiproject/pumps2018:amd64
+  # image: raiproject/pumps2018:ppc64le
+  image: raiproject/pumps2018:latest
+resources:
+  cpu:
+    architecture: ppc64le
+  gpu:
+    count: 1
+  network: false
+  cache: false
+commands:
+  build:
+    - nvidia-smi
+    - cmake /src
+    - make
+    - /bin/sh -e set
+    - ./devicequery
