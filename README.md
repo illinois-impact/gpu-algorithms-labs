@@ -5,7 +5,7 @@ Welcome to the [PUMPS+AI 2018 summer school](http://pumps.bsc.es/). This page co
 - [PUMPS + AI 2018](#pumps--ai-2018)
 - [Install and Setup](#install-and-setup)
 - [Labs](#labs)
-- [Code Development Tools](#code-development-tools)
+- [Code Development **Tools**](#code-development-tools)
   - [Timing the Code Sections](#timing-the-code-sections)
   - [Utility Functions](#utility-functions)
   - [Verifying the Results](#verifying-the-results)
@@ -26,11 +26,11 @@ Download the rai binary for your platform.
 You will probably use it for development, and definitely use it for submission.
 
 
-| Operating System | Architecture | Stable Version (0.2.57) Link                                                             | Beta Version (0.2.57) Link                                                              |
-| ---------------- | ------------ | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| Linux            | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.57/linux-amd64.tar.gz)   | [URL](https://github.com/rai-project/rai/releases/download/latest/linux-amd64.tar.gz)   |
-| OSX/Darwin       | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.57/darwin-amd64.tar.gz)  | [URL](https://github.com/rai-project/rai/releases/download/latest/darwin-amd64.tar.gz)  |
-| Windows          | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.57/windows-amd64.tar.gz) | [URL](https://github.com/rai-project/rai/releases/download/latest/windows-amd64.tar.gz) |
+| Operating System | Architecture | Stable Version (0.2.57) Link                                                              |
+| ---------------- | ------------ | --------------------------------------------------------------------------------------- |
+| Linux            | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.57/linux-amd64.tar.gz)    |
+| OSX/Darwin       | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.57/darwin-amd64.tar.gz)   |
+| Windows          | amd64        | [URL](https://github.com/rai-project/rai/releases/download/v0.2.57/windows-amd64.tar.gz) |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
@@ -67,7 +67,7 @@ Some more info is available on the [Client Documentation Page](https://github.co
 
 _NOTE:_ You may need to use the absolute path if submitting from windows.
 
-# Code Development Tools
+# Code Development **Tools**
 
 Throughout the summer school you'll be developing the labs. The folowing information is common through all the labs and might be helpful while developing.
 
@@ -112,7 +112,7 @@ THROW_IF_ERROR(cudaMalloc((void **)&deviceW, wByteCount));
 
 Profiling can be performed using `nvprof`. Place the following build commands in your `rai-build.yml` file
 
-```yaml
+```**yaml**
     - >-
       nvprof --cpu-profiling on --export-profile timeline.nvprof --
       ./mybinary -i input1,input2 -o output
