@@ -9,9 +9,10 @@ Welcome to the [PUMPS+AI 2018 summer school](http://pumps.bsc.es/). This page co
   - [Timing the Code Sections](#timing-the-code-sections)
   - [Utility Functions](#utility-functions)
   - [Verifying the Results](#verifying-the-results)
-    - [Checking Errors](#checking-errors)
+  - [Checking Errors](#checking-errors)
   - [Profiling](#profiling)
-    - [Enabling Debug builds](#enabling-debug-builds)
+  - [Downloading Your Output Code](#downloading-your-output-code)
+  - [Enabling Debug builds](#enabling-debug-builds)
   - [Offline Development](#offline-development)
   - [Issues](#issues)
   - [License](#license)
@@ -99,7 +100,7 @@ Subsets of the test cases can be run by executing a subset of the tests. We reco
 
 _NOTE:_ The labs are configured to abort on the first error (using the `-a` option in the `rai_build.yml` file). You may need to change this to show the full list of errors.
 
-### Checking Errors
+## Checking Errors
 
 To check and throw CUDA errors, use the THROW_IF_ERROR function. This throws an error when a CUDA error is detected which you can catch if you need special handling of the error.
 
@@ -127,8 +128,16 @@ _NOTE:_ `nvvp` will only show performance metrics for GPU invocations, so it may
 
 You will need to install the nvprof viewer for the CUDA website and the nvprof GUI can be run without CUDA on your machine.
 
+## Downloading Your Output Code
 
-### Enabling Debug builds
+All data files that are in the `/build` folder are temporarily uploaded to a file storage server. This allows you to dump output files during execution and analyze them locally.
+
+```
+✱ The build folder has been uploaded to http://s3.amazonaws.com/files.rai-project.com/abc.tar.gz. The data will be present for only a short duration of time.
+```
+
+
+## Enabling Debug builds
 
 Within the `rai_build.yml` environment, run `cmake -DCMAKE_BUILD_TYPE=Debug /src` this will enable debugging mode. You may also want to pass the `-g -pg -lineinfo` option to the compiler.
 
