@@ -1,4 +1,4 @@
-**# PUMPS + AI 2018
+# PUMPS + AI 2018
 
 
 Welcome to the [PUMPS+AI 2018 summer school](http://pumps.bsc.es/). This page contains information about how to access and submit the labs.
