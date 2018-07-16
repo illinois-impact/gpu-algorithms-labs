@@ -1,9 +1,9 @@
-# PUMPS + AI 2018
+**# PUMPS + AI 2018
 
 
 Welcome to the [PUMPS+AI 2018 summer school](http://pumps.bsc.es/). This page contains information about how to access and submit the labs.
-- [PUMPS + AI 2018](#pumps--ai-2018)
 - [Install and Setup](#install-and-setup)
+    - [Windows](#windows)
 - [Labs](#labs)
 - [Code Development **Tools**](#code-development-tools)
   - [Timing the Code Sections](#timing-the-code-sections)
@@ -47,6 +47,15 @@ Your `.rai_profile` should look something like this (indented with tabs!)
         affiliation: <your-affiliation>
 
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
+
+### Windows
+
+****
+On Windows, you'd need to open notepad and paste the profile output given. Then `SaveAs` and type in `%HOMEPATH%`.
+Type in `.rai_profile` as the name of the file and change the file type to `all`.
+The screenshot below shows what it should look like.
+
+![](2018-07-16-07-58-08.png)
 
 
 # Labs
@@ -174,3 +183,4 @@ rai --verbose --debug
 
 NCSA/UIUC © [Abdul Dakkak](http://impact.crhc.illinois.edu/Content_Page.aspx?student_pg=Default-dakkak)
 
+**
