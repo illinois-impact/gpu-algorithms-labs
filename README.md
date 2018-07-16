@@ -5,7 +5,7 @@ Welcome to the [PUMPS+AI 2018 summer school](http://pumps.bsc.es/). This page co
 - [Install and Setup](#install-and-setup)
     - [Windows](#windows)
 - [Labs](#labs)
-- [Code Development **Tools**](#code-development-tools)
+- [Code Development Tools](#code-development-tools)
   - [Timing the Code Sections](#timing-the-code-sections)
   - [Utility Functions](#utility-functions)
   - [Verifying the Results](#verifying-the-results)
@@ -183,4 +183,4 @@ rai --verbose --debug
 
 NCSA/UIUC © [Abdul Dakkak](http://impact.crhc.illinois.edu/Content_Page.aspx?student_pg=Default-dakkak)
 
-**
+
