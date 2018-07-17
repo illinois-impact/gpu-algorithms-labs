@@ -46,7 +46,7 @@ static std::string mode_name(Mode mode) {
 static std::vector<float> generate_input(int len, int max) {
   static std::random_device rd;  // Will be used to obtain a seed for the random number engine
   static std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-  static std::uniform_real_distribution<> dis(1.0f, 2.0f);
+  static std::uniform_real_distribution<> dis(0.0f, 1.0f);
 
   std::vector<float> res(len);
   std::generate(res.begin(), res.end(), [&]() {
@@ -68,9 +68,6 @@ static std::vector<float> compute_output(const std::vector<float>& inputValues, 
     const auto input = inputValues[inIdx];
     for (int outIdx = 0; outIdx < gridSize; ++outIdx) {
       const float dist = inputPositions[inIdx] - static_cast<float>(outIdx);
-      if (dist == 0) {
-        continue;
-      }
       output[outIdx] += (input * input) / (dist * dist);
     }
   }
@@ -90,4 +87,8 @@ static bool verify(const std::vector<float>& expected, const std::vector<float>&
     }
   }
   return true;
+}
+
+static std::chrono::time_point<std::chrono::high_resolution_clock> now() {
+  return std::chrono::high_resolution_clock::now();
 }
