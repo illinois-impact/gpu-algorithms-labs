@@ -1,7 +1,7 @@
-# PUMPS + AI 2018
+# ECE 508 2019
 
 
-Welcome to the [PUMPS+AI 2018 summer school](http://pumps.bsc.es/). This page contains information about how to access and submit the labs.
+Welcome to [ECE509](https://bw-course.ncsa.illinois.edu/course/view.php?id=5). This page contains information about how to access and submit the labs.
 - [Install and Setup](#install-and-setup)
     - [Windows](#windows)
 - [Labs](#labs)
@@ -51,7 +51,7 @@ Some more info is available on the [Client Documentation Page](https://github.co
 ### Windows
 
 ****
-On Windows, you'd need to open notepad and paste the profile output given. Then `SaveAs` and type in `%HOMEPATH%`.
+On Windows, you'll need to open notepad and paste the profile output given. Then `SaveAs` and type in `%HOMEPATH%`.
 Type in `.rai_profile` as the name of the file and change the file type to `all`.
 The screenshot below shows what it should look like.
 
@@ -60,20 +60,21 @@ The screenshot below shows what it should look like.
 
 # Labs
 
-One or more labs are going to be assigned for each day.
+Several labs will be assigned over the course of the semester
 
-- [Device Query](labs/device_query)
-- [Scatter](labs/scatter)
-- [Gather](labs/gather)
-- [Binning](labs/binning)
-- [Basic Convolution Layer](labs/basic_conv)
+0. [Device Query](labs/device_query)
+1. [Scatter](labs/scatter)/[Gather](labs/gather) ( <- **two-part lab!!!**)
+2. Stencil - coming soon!
+3. Joint-tiled SGEMM - coming soon!
+4. [Binning](labs/binning)
+5. BFS - coming soon!
+6. Merge - coming soon!
 
 The main code of each lab is in the `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
 
 To run any lab you `cd` into that directory, `cd labs/device_query` for example, and run `rai -p .` .
 From a user's point a view when the client runs as if it was local.
 Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
-
 
 _NOTE:_ You may need to use the absolute path if submitting from windows.
 
@@ -83,7 +84,7 @@ Throughout the summer school you'll be developing the labs. The folowing informa
 
 ## Timing the Code Sections
 
-It might be useful to figure out the time of each code section to identify the sbottleneck code.
+It might be useful to figure out the time of each code section to identify the bottleneck code.
 In `common/utils.hpp` a function called `timer_start/timer_stop` which allows you to get the current time at a high resolution.
 To measure the overhead of a function `f(args...)`, the pattern to use is:
 
@@ -98,7 +99,7 @@ This will print the time as the code is running.
 
 ## Utility Functions
 
-We provide a some helper utility functions in the `common/utils.hpp` file.
+We provide some helper utility functions in the `common/utils.hpp` file.
 
 ## Verifying the Results
 
