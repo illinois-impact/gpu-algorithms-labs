@@ -1,18 +1,30 @@
 # 7-point Stencil with Thread-coarsening and Register Tiling
 
-## Objective 
+## Objective
 The purpose of this lab is to practice the thread coarsening and register tiling optimization techniques using 7-point stencil as an example.
 
 ## Procedure
-1. Edit the `kernel` function in `template.cu` to implement a 7-point stencil with combined register tiling and x-y shared memory tiling, and thread coarsening along the z-dimension.
+1. Edit the `kernel` function in `template.cu` to implement a 7-point stencil (refer to the [lecture slides](https://bw-course.ncsa.illinois.edu/mod/resource/view.php?id=574)) with combined register tiling and x-y shared memory tiling, and thread coarsening along the z-dimension.
+
+    ```
+    out(i, j, k) =  C0 *in(i, j, k)
+                  + C1 * (  in(i-1, j, k)
+                          + in(i, j-1, k)
+                          + in(i, j, k-1)
+                          + in(i+1, j, k)
+                          + in(i, j+1, k)
+                          + in(i, j, k+1) )
+    ```
 
 2. Edit the `launchStencil` function in `template.cu` to launch the kernel you implemented. The function should launch 2D CUDA grid and blocks, where each thread is responsible for computing an entire column in the z-deminsion.
 
+    `A0` and `Anext` in the code template correspond to `in` and `out`, respectively. The output dimension of the 7-point stencil computation is one smaller than the input dimension on both sides for all boundaries (e.g., output dimension is 6x6x6 for an input of 8x8x8). Only those "internal" elements needs to be calculated.
+
 3. Test your code using rai
 
-`rai -p <path to your stencil folder>`
+    `rai -p <path to your stencil folder>`
 
-Be sure to add any additional flags that are required by your course (`--queue` or others).
+    Be sure to add any additional flags that are required by your course (`--queue` or others).
 
 4. Submit your code on rai
 

@@ -70,7 +70,7 @@ static int eval(const int nx, const int ny, const int nz) {
 
 
 
-TEST_CASE("Convlayer", "[convlayer]") {
+TEST_CASE("Stencil", "[stencil]") {
 
   SECTION("[dims:32,32,32]") {
     eval(32,32,32);
