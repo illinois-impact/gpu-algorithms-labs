@@ -31,8 +31,6 @@ You will probably use it for development, and definitely use it for submission.
 | Operating System | Architecture | Stable Version (0.2.57) Link                                          |
 | ---------------- | ------------ | --------------------------------------------------------------------- |
 | Linux            | amd64        | [URL](https://www.dropbox.com/s/bqm3r86h60jw14x/linux-amd64.tar.gz)   |
-| OSX/Darwin       | amd64        | [URL](https://www.dropbox.com/s/yguqryuu012vbsy/darwin-amd64.tar.gz)  |
-| Windows          | amd64        | [URL](https://www.dropbox.com/s/za18ag16d2dk8qi/windows-amd64.tar.gz) |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
