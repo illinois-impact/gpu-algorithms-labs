@@ -8,6 +8,7 @@ resources:
     count: 1
 commands:
   build:
+    - cp -r /src .
     - cmake /src
     - make
     - ./devicequery

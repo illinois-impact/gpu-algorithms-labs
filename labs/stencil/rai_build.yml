@@ -10,6 +10,7 @@ resources:
   cache: false
 commands:
   build:
+    - cp -r /src .
     - cmake /src
     - make
     - ./stencil -a

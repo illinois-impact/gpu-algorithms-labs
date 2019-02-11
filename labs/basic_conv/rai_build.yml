@@ -6,6 +6,7 @@ resources:
     architecture: ppc64le
 commands:
   build:
+    - cp -r /src .
     - cmake /src
     - make
     - ./basic_conv -a
