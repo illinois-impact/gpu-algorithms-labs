@@ -1,6 +1,6 @@
 rai:
   version: 0.2
-  image: raiproject/pumps2018:latest
+  image: raiproject/pumps2018:amd64-cuda100
 resources:
   cpu:
     architecture: ppc64le
@@ -8,8 +8,4 @@ commands:
   build:
     - cmake /src
     - make
-    # - ./binning -l
-    # - ./binning -h
-    # - ./binning 'CPUNormal*' -a
-    #- ./binning 'CPUNormal*' -a
     - ./binning -a
