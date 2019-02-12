@@ -1,0 +1,20 @@
+#pragma once
+
+// do not modify this function signature
+void gpu_global_queuing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
+                        unsigned int *nodeVisited, unsigned int *currLevelNodes,
+                        unsigned int *nextLevelNodes,
+                        unsigned int *numCurrLevelNodes,
+                        unsigned int *numNextLevelNodes);
+
+void gpu_block_queuing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
+                       unsigned int *nodeVisited, unsigned int *currLevelNodes,
+                       unsigned int *nextLevelNodes,
+                       unsigned int *numCurrLevelNodes,
+                       unsigned int *numNextLevelNodes);
+
+void gpu_warp_queuing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
+                      unsigned int *nodeVisited, unsigned int *currLevelNodes,
+                      unsigned int *nextLevelNodes,
+                      unsigned int *numCurrLevelNodes,
+                      unsigned int *numNextLevelNodes);

@@ -1,0 +1,1 @@
+/usr/bin/g++  CMakeFiles/bfs.dir/eval.cu.o CMakeFiles/bfs.dir/template.cu.o CMakeFiles/bfs.dir/cmake_device_link.o -o bfs /usr/local/cuda/lib64/libcudart_static.a -lpthread -ldl /usr/lib/x86_64-linux-gnu/librt.so  -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib" -lcudadevrt -lcudart_static -lrt -lpthread -ldl
