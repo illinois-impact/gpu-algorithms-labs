@@ -1,0 +1,18 @@
+rai:
+  version: 0.2
+  image: raiproject/pumps2018:triangle-counting-amd64-cuda100
+resources:
+  cpu:
+    architecture: amd64
+  gpu:
+    count: 1
+  limits:
+    network: true
+commands:
+  build:
+    - cp -r /src . # ensure source code is in upload folder
+    - /opt/cmake/bin/cmake /src -DCMAKE_PREFIX_PATH=${PANGOLIN_INSTALL_DIR} -DGRAPH_PREFIX_PATH=\"/graphs\"
+    - make
+    - ./tc -c LINEAR
+    # - ./tc -a
+
