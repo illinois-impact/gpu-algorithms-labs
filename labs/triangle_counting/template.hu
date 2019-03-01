@@ -1,7 +1,7 @@
 #pragma once
 
-#include <pangolin/pangolin.hpp>
 #include <cstdint>
+#include <pangolin/pangolin.hpp>
 
 // do not modify this function signature
 uint64_t count_triangles(const pangolin::COOView<uint32_t> view, const int mode);

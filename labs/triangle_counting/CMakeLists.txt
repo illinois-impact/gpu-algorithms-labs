@@ -18,6 +18,7 @@ hunter_add_package(spdlog)
 find_package(spdlog CONFIG REQUIRED)
 hunter_add_package(cub)
 find_package(cub CONFIG REQUIRED)
+hunter_add_package(Catch)
 find_package(pangolin CONFIG REQUIRED)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
