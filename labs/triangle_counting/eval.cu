@@ -6,7 +6,7 @@ automatic grading and students should not need to modify it.
 */
 
 #include "helper.hpp"
-#include "solution.hu"
+#include "template.hu"
 
 #include "pangolin/pangolin.hpp"
 
