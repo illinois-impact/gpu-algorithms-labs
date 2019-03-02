@@ -13,5 +13,6 @@ commands:
     - cp -r /src .
     - cmake /src
     - make
-    - ./sgemm -a
-
+    - ./bfs gq
+    - ./bfs bq
+    - ./bfs wq
