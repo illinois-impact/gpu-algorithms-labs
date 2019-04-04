@@ -24,13 +24,10 @@ Clone this repository to get the project folder.
 
     git clone https://github.com/illinois-impact/gpu-algorithms-labs.git
 
-Download the rai binary for your platform.
+Download the rai binary for your platform from [URL](https://github.com/rai-project/rai#classes-binaries).
 You will probably use it for development, and definitely use it for submission.
 
 
-| Operating System | Architecture | Stable Version (0.2.57) Link                                          |
-| ---------------- | ------------ | --------------------------------------------------------------------- |
-| Linux            | amd64        | [URL](https://www.dropbox.com/s/bqm3r86h60jw14x/linux-amd64.tar.gz)   |
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
