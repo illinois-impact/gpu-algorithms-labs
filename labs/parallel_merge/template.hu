@@ -1,0 +1,8 @@
+#pragma once
+
+// do not modify this function signature
+void gpu_basic_merge(float* A, int A_len, float* B, int B_len, float* C);
+
+void gpu_tiled_merge(float* A, int A_len, float* B, int B_len, float* C);
+
+void gpu_circular_buffer_merge(float* A, int A_len, float* B, int B_len, float* C);
