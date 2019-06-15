@@ -58,13 +58,16 @@ The screenshot below shows what it should look like.
 
 Several labs will be assigned over the course of the semester
 
-0. [Device Query](labs/device_query)
-1. [Scatter](labs/scatter)/[Gather](labs/gather) ( <- **two-part lab!!!**)
-2. Stencil - coming soon!
-3. Joint-tiled SGEMM - coming soon!
-4. [Binning](labs/binning)
-5. BFS - coming soon!
-6. Merge - coming soon!
+* [Device Query](labs/device_query)
+* [Scatter](labs/scatter)/[Gather](labs/gather) ( <- **two-part lab!!!**)
+* [Stencil](labs/stencil)
+* [Joint-tiled SGEMM](sgemm-regtiled-coarsened)
+* [Binning](labs/binning)
+* [BFS](bfs)
+* [Convolution](basic_conv)
+* [Tiled Convolution](tiled_conv)
+* [Merge Sort](parallel_merge)
+* [Triangle Counting](triangle_counting)
 
 The main code of each lab is in the `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
 
