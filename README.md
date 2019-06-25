@@ -1,7 +1,7 @@
-# ECE 508 2019
+# PUMPS+AI 2019
 
 
-Welcome to University of Illinois [ECE508](https://bw-course.ncsa.illinois.edu/course/view.php?id=5) for Spring 2019.
+Welcome to the [PUMPS+AI 2019 Summer School](https://pumps.bsc.es/2019/).
 This page contains information about how to access and submit the labs.
 - [Install and Setup](#install-and-setup)
     - [Windows](#windows)
@@ -56,18 +56,15 @@ The screenshot below shows what it should look like.
 
 # Labs
 
-Several labs will be assigned over the course of the semester
+Several labs will be assigned over the course of the week
 
 * [Device Query](labs/device_query)
 * [Scatter](labs/scatter)/[Gather](labs/gather) ( <- **two-part lab!!!**)
-* [Stencil](labs/stencil)
 * [Joint-tiled SGEMM](sgemm-regtiled-coarsened)
 * [Binning](labs/binning)
 * [BFS](bfs)
 * [Convolution](basic_conv)
 * [Tiled Convolution](tiled_conv)
-* [Merge Sort](parallel_merge)
-* [Triangle Counting](triangle_counting)
 
 The main code of each lab is in the `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
 
