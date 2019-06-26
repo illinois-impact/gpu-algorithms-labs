@@ -29,9 +29,9 @@ You will probably use it for development, and definitely use it for submission.
 
 |Platform | link |
 |-|-|
-|linux amd64   | https://www.dropbox.com/s/bqm3r86h60jw14x/linux-amd64.tar.gz   |
-|macoS amd64   | https://www.dropbox.com/s/yguqryuu012vbsy/darwin-amd64.tar.gz  |
-|windows amd64 | https://www.dropbox.com/s/za18ag16d2dk8qi/windows-amd64.tar.gz |
+|linux amd64   | https://www.dropbox.com/s/62vxti9ski9mkw1/rai-linux-amd64  |
+|macoS amd64   | https://www.dropbox.com/s/j4hqgrz9kqsrbss/rai-darwin-amd64 |
+|windows amd64 | Use the linux binary under the Windows Subsystem for Linux |
 
 
 
