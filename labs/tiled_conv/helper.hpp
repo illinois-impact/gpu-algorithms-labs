@@ -8,9 +8,6 @@
 #include "common/fmt.hpp"
 #include "common/utils.hpp"
 
-#include "range.hpp"
-#include "shape.hpp"
-
 #include "assert.h"
 #include "stdint.h"
 #include "stdio.h"
@@ -23,6 +20,9 @@
 #include <chrono>
 
 #include <cuda.h>
+
+#include "range.hpp"
+#include "shape.hpp"
 
 /*********************************************************************/
 /* Random number generator                                           */
