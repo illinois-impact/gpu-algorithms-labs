@@ -4,6 +4,8 @@ rai:
 resources:
   cpu:
     architecture: ppc64le
+  gpu:
+    count: 1
 commands:
   build:
     - cp -r /src .
