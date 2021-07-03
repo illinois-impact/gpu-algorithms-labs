@@ -27,7 +27,7 @@ Clone this repository to get the project folder.
 Download the rai binary for your platform below.
 You will probably use it for development, and definitely use it for submission.
 
-[Linux and Darwin rai binaries] (https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV)
+[Linux and Darwin rai binaries](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV)
 
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
