@@ -3,14 +3,13 @@ rai:
   image: raiproject/pumps2018:amd64-cuda100
 resources:
   cpu:
-    architecture: ppc64le
+    architecture: amd64
   gpu:
     count: 1
   network: false
   cache: false
 commands:
   build:
-    - cp -r /src .
     - cmake /src
     - make
     - ./sgemm -a

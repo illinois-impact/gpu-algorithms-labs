@@ -8,7 +8,6 @@ resources:
     count: 1
 commands:
   build:
-    - cp -r /src .
     - cmake /src
     - make
-    - ./scatter -a
+    - ./scatter Scatter -a

@@ -1,7 +1,7 @@
-# PUMPS+AI 2019
+# PUMPS+AI 2021
 
 
-Welcome to the [PUMPS+AI 2019 Summer School](https://pumps.bsc.es/2019/).
+Welcome to the [PUMPS+AI 2021 Summer School](https://pumps.bsc.es/2019/).
 This page contains information about how to access and submit the labs.
 - [Install and Setup](#install-and-setup)
     - [Windows](#windows)
