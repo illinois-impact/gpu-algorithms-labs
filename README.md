@@ -65,7 +65,7 @@ The screenshot below shows what it should look like.
 Several labs will be assigned over the course of the week
 
 * [Device Query](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/device_query)
-* [Scatter](labs/scatter)/[Gather](labs/gather) ( <- **two-part lab!!!**)
+* [Scatter](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/scatter)/[Gather](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/gather) ( <- **two-part lab!!!**)
 * [Joint-tiled SGEMM](labs/sgemm-regtiled-coarsened)
 * [Binning](labs/binning)
 * [BFS](labs/bfs)
