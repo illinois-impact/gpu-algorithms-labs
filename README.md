@@ -66,11 +66,11 @@ Several labs will be assigned over the course of the week
 
 * [Device Query](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/device_query)
 * [Scatter](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/scatter)/[Gather](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/gather) ( <- **two-part lab!!!**)
-* [Joint-tiled SGEMM](labs/sgemm-regtiled-coarsened)
-* [Binning](labs/binning)
-* [BFS](labs/bfs)
-* [Convolution](labs/basic_conv)
-* [Tiled Convolution](labs/tiled_conv)
+* [Joint-tiled SGEMM](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/sgemm-regtiled-coarsened)
+* [Binning](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/binning)
+* [BFS](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/bfs)
+* [Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/basic_conv)
+* [Tiled Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/tiled_conv)
 
 The main code of each lab is in the `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
 
