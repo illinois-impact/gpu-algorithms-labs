@@ -64,13 +64,13 @@ The screenshot below shows what it should look like.
 
 Several labs will be assigned over the course of the week
 
-* [Device Query](labs/device_query)
+* [Device Query](tree/su2021_pumps/labs/device_query)
 * [Scatter](labs/scatter)/[Gather](labs/gather) ( <- **two-part lab!!!**)
-* [Joint-tiled SGEMM](sgemm-regtiled-coarsened)
+* [Joint-tiled SGEMM](labs/sgemm-regtiled-coarsened)
 * [Binning](labs/binning)
-* [BFS](bfs)
-* [Convolution](basic_conv)
-* [Tiled Convolution](tiled_conv)
+* [BFS](labs/bfs)
+* [Convolution](labs/basic_conv)
+* [Tiled Convolution](labs/tiled_conv)
 
 The main code of each lab is in the `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
 
