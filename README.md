@@ -47,12 +47,8 @@ Some more info is available on the [Client Documentation Page](https://github.co
 ### Windows
 
 ****
-On Windows, you'll need to open notepad and paste the profile output given. Then `SaveAs` and type in `%HOMEPATH%`.
-Type in `.rai_profile` as the name of the file and change the file type to `all`.
-The screenshot below shows what it should look like.
-
-![](2018-07-16-07-58-08.png)
-
+On Windows, you'll need to install WSL and a virtual linux OS. Several Linux versions are available
+through the Microsoft Store.
 
 # Labs
 
@@ -65,18 +61,16 @@ Several labs will be assigned over the course of the week
 * [BFS](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/bfs)
 * [Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/basic_conv)
 * [Tiled Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/tiled_conv)
+* [Triangle Counting](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/triangle_counting)
 
-The main code of each lab is in the `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
+For most labs, the main code of is in `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
 
 To run any lab you `cd` into that directory, `cd labs/device_query` for example, and run `rai -p .` .
 From a user's point a view when the client runs as if it was local.
-Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
-
-_NOTE:_ You may need to use the absolute path if submitting from windows.
 
 # Code Development **Tools**
 
-Throughout the summer school you'll be developing the labs. The folowing information is common through all the labs and might be helpful while developing.
+Throughout the summer school you'll be developing the labs. The following information is common through all the labs and might be helpful while developing.
 
 ## Timing the Code Sections
 
@@ -149,7 +143,7 @@ Within the `rai_build.yml` environment, run `cmake -DCMAKE_BUILD_TYPE=Debug /src
 
 ## Offline Development
 
-You can use the docker image and or install CMake within a CUDA envrionment. Then run `cmake [lab]` and then `make`. We do not using your own machine, and we will not be debugging your machine/installation setup.
+You can use the docker image and or install CMake within a CUDA envrionment. Then run `cmake [lab]` and then `make`. We do not recommend using your own machine, and we will not be debugging your machine/installation setup.
 
 ## Issues
 
