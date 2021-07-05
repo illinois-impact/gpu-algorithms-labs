@@ -31,10 +31,10 @@ You will probably use it for development, and definitely use it for submission.
 
 In the documentation below, we refer to rai as the rai binary. Either rename your binary to rai or substitute the downloaded name when executing. When executing, you will need to include the full path to rai or add rai's location to your $PATH.
 
-Finally, the downloaded file will not have execute privileges. Use the 'chmod ugo+x' command to make the file executable.
+Finally, the downloaded file will not have execute privileges. Use the 'chmod ugo+x rai' command to make the file executable.
 
 You should have received a `.rai_profile` file by email.
-Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
+Put that file in `~/.rai_profile`.
 Your `.rai_profile` should look something like this (indented with tabs!)
 
     profile:
