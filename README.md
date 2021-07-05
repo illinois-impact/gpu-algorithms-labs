@@ -29,6 +29,10 @@ You will probably use it for development, and definitely use it for submission.
 
 [Linux and Darwin rai binaries](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV)
 
+In the documentation below, we refer to rai as the rai binary. Either rename your binary to rai or substitute the downloaded name when executing. When executing, you will need to include the full path to rai or add rai's location to your $PATH.
+
+Finally, the downloaded file will not have execute privileges. Use the 'chmod ugo+x' command to make the file executable.
+
 You should have received a `.rai_profile` file by email.
 Put that file in `~/.rai_profile` (Linux/macOS) or `%HOME%/.rai_profile` (Windows).
 Your `.rai_profile` should look something like this (indented with tabs!)
@@ -42,8 +46,6 @@ Your `.rai_profile` should look something like this (indented with tabs!)
         secret_key: <your-secret-key>
         affiliation: <your-affiliation>
 
-Some more info is available on the [Client Documentation Page](https://github.com/rai-project/rai).
-
 ### Windows
 
 ****
@@ -54,14 +56,14 @@ through the Microsoft Store.
 
 Several labs will be assigned over the course of the week
 
-* [Device Query](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/device_query)
-* [Scatter](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/scatter)/[Gather](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/gather) ( <- **two-part lab!!!**)
-* [Joint-tiled SGEMM](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/sgemm-regtiled-coarsened)
-* [Binning](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/binning)
-* [BFS](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/bfs)
-* [Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/basic_conv)
-* [Tiled Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/tiled_conv)
-* [Triangle Counting](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/triangle_counting)
+* [Device Query](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/device_query)
+* [Scatter](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/scatter)/[Gather](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/gather) ( <- **two-part lab!!!**)
+* [Joint-tiled SGEMM](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/sgemm-regtiled-coarsened)
+* [Binning](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/binning)
+* [BFS](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/bfs)
+* [Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/basic_conv)
+* [Tiled Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/tiled_conv)
+* [Triangle Counting](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/triangle_counting)
 
 For most labs, the main code of is in `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
 
