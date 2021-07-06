@@ -3,7 +3,7 @@ rai:
   image: raiproject/pumps2018:amd64-cuda100
 resources:
   cpu:
-    architecture:amd64
+    architecture: amd64
   gpu:
     count: 1
   network: false
