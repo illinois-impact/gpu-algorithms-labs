@@ -46,6 +46,11 @@ Your `.rai_profile` should look something like this (indented with tabs!)
         secret_key: <your-secret-key>
         affiliation: <your-affiliation>
 
+To test the configurations, execute rai with the device_query lab. E.g. if you are in the parent directory of this repo, run:
+
+```bash
+rai -p ./labs/device_query
+```
 ### Windows
 
 ****
