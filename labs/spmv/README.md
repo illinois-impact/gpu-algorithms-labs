@@ -13,7 +13,7 @@ The following figure illustrates the components of a JDS matrix and how it is lo
 Edit the kernel and the host function in the file to implement sparse matrix-vector multiplication using the CSR format. Once complete, you can start working on the JDS format datasets.
 
 
-![image](/labs/spmv/assets/figure.pdf "thumbnail")
+![image](/labs/spmv/assets/figure.png "thumbnail")
 
 
 Instructions about where to place each part of the code is
