@@ -1,4 +1,5 @@
 #include <wb.h>
+#include <chrono>
 
 #define wbCheck(stmt)                                                     \
   do {                                                                    \
@@ -13,18 +14,56 @@
 __global__ void spmvCSRKernel(float *out, int *matCols, int *matRows,
                               float *matData, float *vec, int dim) {
   //@@ insert spmv kernel for csr format
+
+	  unsigned int row = blockIdx.x * blockDim.x + threadIdx.x;
+
+  if (row < dim) {
+
+    float result = 0.0f;
+    unsigned int start = matRows[row];
+    unsigned int end = matRows[row + 1];
+
+    for (int elemIdx = start; elemIdx < end; ++elemIdx) {
+      unsigned int colIdx = matCols[elemIdx];
+      result += matData[elemIdx] * vec[colIdx];
+    }
+
+    out[row] = result;
+  }
+
 }
 
 __global__ void spmvJDSKernel(float *out, int *matColStart, int *matCols,
                               int *matRowPerm, int *matRows,
                               float *matData, float *vec, int dim) {
   //@@ insert spmv kernel for jds format
+	  unsigned int idx = blockIdx.x * blockDim.x + threadIdx.x;
+
+  if (idx < dim) {
+
+    unsigned int row = matRowPerm[idx];
+    float result = 0.0f;
+    unsigned int rowNNZ = matRows[idx];
+    for (unsigned int nzIdx = 0; nzIdx < rowNNZ; ++nzIdx) {
+      unsigned int elemIdx = matColStart[nzIdx] + idx;
+      unsigned int colIdx = matCols[elemIdx];
+      result += matData[elemIdx] * vec[colIdx];
+    }
+    out[row] = result;
+  }
+
 }
 
 static void spmvCSR(float *out, int *matCols, int *matRows, float *matData,
                     float *vec, int dim) {
 
   //@@ invoke spmv kernel for csr format
+
+	  const unsigned int THREADS_PER_BLOCK = 512;
+  const unsigned int numBlocks = (dim - 1) / THREADS_PER_BLOCK + 1;
+  spmvCSRKernel<<<numBlocks, THREADS_PER_BLOCK>>>(out, matCols, matRows,
+                                                  matData, vec, dim);
+
 }
 
 static void spmvJDS(float *out, int *matColStart, int *matCols,
@@ -32,6 +71,12 @@ static void spmvJDS(float *out, int *matColStart, int *matCols,
                     float *vec, int dim) {
 
   //@@ invoke spmv kernel for jds format
+
+	  const unsigned int THREADS_PER_BLOCK = 512;
+  const unsigned int numBlocks = (dim - 1) / THREADS_PER_BLOCK + 1;
+  spmvJDSKernel<<<numBlocks, THREADS_PER_BLOCK>>>(
+      out, matColStart, matCols, matRowPerm, matRows, matData, vec, dim);
+
 }
 
 int main(int argc, char **argv) {
@@ -62,7 +107,7 @@ int main(int argc, char **argv) {
 
   args = wbArg_read(argc, argv);
 
-  wbTime_start(Generic, "Importing data and creating memory on host");
+  printf("Importing data and creating memory on host\n");
   usingJDSQ = wbImport_flag(wbArg_getInputFile(args, 0)) == 1;
   hostCSRCols =
       (int *)wbImport(wbArg_getInputFile(args, 1), &ncols, "Integer");
@@ -75,15 +120,13 @@ int main(int argc, char **argv) {
 
   hostOutput = (float *)malloc(sizeof(float) * dim);
 
-  wbTime_stop(Generic, "Importing data and creating memory on host");
-
   if (usingJDSQ) {
     CSRToJDS(dim, hostCSRRows, hostCSRCols, hostCSRData, &hostJDSRowPerm,
              &hostJDSRows, &hostJDSColStart, &hostJDSCols, &hostJDSData);
     maxRowNNZ = hostJDSRows[0];
   }
 
-  wbTime_start(GPU, "Allocating GPU memory.");
+  printf("Allocating GPU memory.\n");
   if (usingJDSQ) {
     cudaMalloc((void **)&deviceJDSColStart, sizeof(int) * maxRowNNZ);
     cudaMalloc((void **)&deviceJDSCols, sizeof(int) * ndata);
@@ -97,9 +140,8 @@ int main(int argc, char **argv) {
   }
   cudaMalloc((void **)&deviceVector, sizeof(float) * dim);
   cudaMalloc((void **)&deviceOutput, sizeof(float) * dim);
-  wbTime_stop(GPU, "Allocating GPU memory.");
 
-  wbTime_start(GPU, "Copying input memory to the GPU.");
+  printf("Copying input memory to the GPU.\n");
   if (usingJDSQ) {
     cudaMemcpy(deviceJDSColStart, hostJDSColStart, sizeof(int) * maxRowNNZ,
                cudaMemcpyHostToDevice);
@@ -121,9 +163,11 @@ int main(int argc, char **argv) {
   }
   cudaMemcpy(deviceVector, hostVector, sizeof(float) * dim,
              cudaMemcpyHostToDevice);
-  wbTime_stop(GPU, "Copying input memory to the GPU.");
 
-  wbTime_start(Compute, "Performing CUDA computation");
+  typedef std::chrono::high_resolution_clock Clock;
+  typedef std::chrono::duration<double> Duration;
+  printf("Performing CUDA computation\n");
+  auto start = Clock::now();
   if (usingJDSQ) {
     spmvJDS(deviceOutput, deviceJDSColStart, deviceJDSCols,
             deviceJDSRowPerm, deviceJDSRows, deviceJDSData, deviceVector,
@@ -133,14 +177,14 @@ int main(int argc, char **argv) {
             deviceVector, dim);
   }
   cudaDeviceSynchronize();
-  wbTime_stop(Compute, "Performing CUDA computation");
+  Duration elapsed = Clock::now() - start;
+  std::cout << elapsed.count() << " seconds\n";
 
-  wbTime_start(Copy, "Copying output memory to the CPU");
+  printf("Copying output memory to the CPU\n");
   cudaMemcpy(hostOutput, deviceOutput, sizeof(float) * dim,
              cudaMemcpyDeviceToHost);
-  wbTime_stop(Copy, "Copying output memory to the CPU");
 
-  wbTime_start(GPU, "Freeing GPU Memory");
+  printf("Freeing GPU Memory\n");
   cudaFree(deviceCSRCols);
   cudaFree(deviceCSRRows);
   cudaFree(deviceCSRData);
@@ -153,9 +197,11 @@ int main(int argc, char **argv) {
     cudaFree(deviceJDSRows);
     cudaFree(deviceJDSData);
   }
-  wbTime_stop(GPU, "Freeing GPU Memory");
 
   wbSolution(args, hostOutput, dim);
+
+  printf("ncols: %d, nrows: %d, ndata: %d, dim: %d\n",ncols,nrows,ndata,dim);
+  return 0;
 
   free(hostCSRCols);
   free(hostCSRRows);
