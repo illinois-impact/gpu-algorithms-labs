@@ -198,10 +198,13 @@ int main(int argc, char **argv) {
     cudaFree(deviceJDSData);
   }
 
-  wbSolution(args, hostOutput, dim);
+  wbBool res = wbSolution(args, hostOutput, dim);
+  /*if(res)
+    printf("Solution is correct!\n");
+  else
+    printf("Solution is not working!\n");*/
 
   printf("ncols: %d, nrows: %d, ndata: %d, dim: %d\n",ncols,nrows,ndata,dim);
-  return 0;
 
   free(hostCSRCols);
   free(hostCSRRows);
