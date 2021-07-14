@@ -10,8 +10,6 @@ resources:
   cache: false
 commands:
   build:
-    - cp -r /src .
-    - cmake /src
     - make
     - ./spmv csr
     - ./spmv jds
