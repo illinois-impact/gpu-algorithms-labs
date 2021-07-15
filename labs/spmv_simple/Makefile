@@ -5,7 +5,7 @@ CXXFLAGS = -std=c++11 -fopenmp
 OPTFLAGS = -O3
 
 NVCC = nvcc
-NVCCFLAGS = -O3 -std=c++11 -Xcompiler -fopenmp #-gencode arch=compute_70,code=sm_70 -ccbin=CC
+NVCCFLAGS = -O3 -std=c++11 -Xcompiler -fopenmp -gencode arch=compute_70,code=sm_70 -ccbin=g++ -Xptxas="-v"
 
 LD_FLAGS = -lgomp -InvToolsExt
 
@@ -25,8 +25,5 @@ all:	$(TARGETS)
 spmv: $(OBJECTS)
 	$(NVCC) -o $@ $(OBJECTS) $(LD_FLAGS)
 
-libwb:
-	cd libwb; make
-
 clean:
-	rm -f $(TARGETS) src/*.o src/*.o.* *.txt *.bin core
+	rm -f $(TARGETS) *.o *.o.* *.txt *.bin core

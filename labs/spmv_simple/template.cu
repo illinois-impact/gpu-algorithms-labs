@@ -2,12 +2,19 @@
 #include <chrono>
 #include <algorithm>
 #include <thrust/sort.h>
+#include <cuda.h>
+
+__global__ void dummy(){
+
+	printf("hello\n");
+}
 
 __global__ void spmvCSRKernel(float *out, int *matCols, int *matRows,
                               float *matData, float *vec, int dim) {
   //@@ insert spmv kernel for csr format
 
-	  unsigned int row = blockIdx.x * blockDim.x + threadIdx.x;
+  unsigned int row = blockIdx.x * blockDim.x + threadIdx.x;
+  printf("row: %d\n",row);
 
   if (row < dim) {
 
@@ -53,8 +60,12 @@ static void spmvCSR(float *out, int *matCols, int *matRows, float *matData,
 
 	  const unsigned int THREADS_PER_BLOCK = 512;
   const unsigned int numBlocks = (dim - 1) / THREADS_PER_BLOCK + 1;
-  spmvCSRKernel<<<numBlocks, THREADS_PER_BLOCK>>>(out, matCols, matRows,
-                                                  matData, vec, dim);
+
+  printf("numblocks: %d THREADS_PER_BLOCK: %d\n",numBlocks,THREADS_PER_BLOCK);
+
+ // spmvCSRKernel<<<numBlocks, THREADS_PER_BLOCK>>>(out, matCols, matRows,
+  //                                                matData, vec, dim);
+  dummy<<<numBlocks, THREADS_PER_BLOCK>>>();
 
 }
 
@@ -69,6 +80,33 @@ static void spmvJDS(float *out, int *matColStart, int *matCols,
   spmvJDSKernel<<<numBlocks, THREADS_PER_BLOCK>>>(
       out, matColStart, matCols, matRowPerm, matRows, matData, vec, dim);
 
+}
+
+static void sort(int *data, int *key, int start, int end) {
+  if ((end - start + 1) > 1) {
+    int left = start, right = end;
+    int pivot = key[right];
+    while (left <= right) {
+      while (key[left] > pivot) {
+        left = left + 1;
+      }
+      while (key[right] < pivot) {
+        right = right - 1;
+      }
+      if (left <= right) {
+        int tmp     = key[left];
+        key[left]   = key[right];
+        key[right]  = tmp;
+        tmp         = data[left];
+        data[left]  = data[right];
+        data[right] = tmp;
+        left        = left + 1;
+        right       = right - 1;
+      }
+    }
+    sort(data, key, start, right);
+    sort(data, key, left, end);
+  }
 }
 
 void CSRToJDS(int dim, int *csrRowPtr, int *csrColIdx,
@@ -92,7 +130,7 @@ void CSRToJDS(int dim, int *csrRowPtr, int *csrColIdx,
 
   // Starting point of each compressed column
   int maxRowNNZ = (*jdsRowNNZ)[0]; // Largest number of non-zeros per row
-  DEBUG(printf("jdsRowNNZ = %d\n", maxRowNNZ));
+  printf("jdsRowNNZ = %d\n", maxRowNNZ);
   *jdsColStartIdx      = (int *)malloc(sizeof(int) * maxRowNNZ);
   (*jdsColStartIdx)[0] = 0; // First column starts at 0
   for (int col = 0; col < maxRowNNZ - 1; ++col) {
@@ -108,9 +146,9 @@ void CSRToJDS(int dim, int *csrRowPtr, int *csrColIdx,
 
   // Sort the column indexes and data
   const int NNZ = csrRowPtr[dim];
-  DEBUG(printf("NNZ = %d\n", NNZ));
+  printf("NNZ = %d\n", NNZ);
   *jdsColIdx = (int *)malloc(sizeof(int) * NNZ);
-  DEBUG(printf("dim = %d\n", dim));
+  printf("dim = %d\n", dim);
   *jdsData = (float *)malloc(sizeof(float) * NNZ);
   for (int idx = 0; idx < dim; ++idx) { // For every row
     int row    = (*jdsRowPerm)[idx];
@@ -196,6 +234,29 @@ int main(int argc, char **argv) {
     printf("CSR Multiplication\n");
   printf("#Columns: %d, #Rows: %d, #Data: %d, Dim: %d\n",ncols,nrows,ndata,dim);
 
+  printf("hostCSRRows\n");
+  for(int n = 0; n < nrows; n++)
+    printf("%d\n",hostCSRRows[n]);
+  printf("hostCSRCols\n");
+  for(int n = 0; n < ncols; n++)
+    printf("%d\n",hostCSRCols[n]);
+  printf("hostVector\n");
+  for(int n = 0; n < dim; n++)
+    printf("%e\n",hostVector[n]);
+
+  float *mat = new float[dim*dim];
+  for(int n = 0; n < dim*dim; n++)
+    mat[n] = 0;
+  for(int m = 0; m < dim; m++)
+    for(int n = hostCSRRows[m]; n < hostCSRRows[m+1]; n++)
+      mat[m*dim+hostCSRCols[n]] = hostCSRData[n];
+  printf("\n");
+  for(int m = 0; m < dim; m++){
+    for(int n = 0; n < dim; n++)
+      printf("%.0f ",mat[m*dim+n]);
+    printf("\n");
+  }
+
   hostOutput = (float *)malloc(sizeof(float) * dim);
 
   if (usingJDSQ) {
@@ -204,7 +265,7 @@ int main(int argc, char **argv) {
     maxRowNNZ = hostJDSRows[0];
   }
 
-  /*printf("Allocating GPU memory.\n");
+  printf("Allocating GPU memory.\n");
   if (usingJDSQ) {
     cudaMalloc((void **)&deviceJDSColStart, sizeof(int) * maxRowNNZ);
     cudaMalloc((void **)&deviceJDSCols, sizeof(int) * ndata);
@@ -276,12 +337,18 @@ int main(int argc, char **argv) {
     cudaFree(deviceJDSData);
   }
 
-  wbBool res = wbSolution(args, hostOutput, dim);*/
-  /*if(res)
-    printf("Solution is correct!\n");
-  else
-    printf("Solution is not working!\n");*/
+  sprintf(filename,"%soutput.raw",argv[1]);
+  printf("%s\n",filename);
+  FILE *fout = fopen(filename,"r");
+  fscanf(fout,"%d\n",&dim);
+  printf("dim: %d\n",dim);
+  float *hostOut = new float[dim];
+  for(int n = 0; n < dim; n++)
+    fscanf(fout,"%e\n",&hostOut[n]);
+  fclose(fout);
 
+  for(int n = 0; n < dim; n++)
+    printf("%e %e\n",hostOutput[n],hostOut[n]);
 
   free(hostCSRCols);
   free(hostCSRRows);
