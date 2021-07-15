@@ -12,34 +12,25 @@ __global__ void dummy(){
 __global__ void spmvCSRKernel(float *out, int *matCols, int *matRows,
                               float *matData, float *vec, int dim) {
   //@@ insert spmv kernel for csr format
-
   unsigned int row = blockIdx.x * blockDim.x + threadIdx.x;
-  printf("row: %d\n",row);
-
   if (row < dim) {
-
     float result = 0.0f;
     unsigned int start = matRows[row];
     unsigned int end = matRows[row + 1];
-
     for (int elemIdx = start; elemIdx < end; ++elemIdx) {
       unsigned int colIdx = matCols[elemIdx];
       result += matData[elemIdx] * vec[colIdx];
     }
-
     out[row] = result;
   }
-
 }
 
 __global__ void spmvJDSKernel(float *out, int *matColStart, int *matCols,
                               int *matRowPerm, int *matRows,
                               float *matData, float *vec, int dim) {
   //@@ insert spmv kernel for jds format
-	  unsigned int idx = blockIdx.x * blockDim.x + threadIdx.x;
-
+  unsigned int idx = blockIdx.x * blockDim.x + threadIdx.x;
   if (idx < dim) {
-
     unsigned int row = matRowPerm[idx];
     float result = 0.0f;
     unsigned int rowNNZ = matRows[idx];
@@ -55,31 +46,21 @@ __global__ void spmvJDSKernel(float *out, int *matColStart, int *matCols,
 
 static void spmvCSR(float *out, int *matCols, int *matRows, float *matData,
                     float *vec, int dim) {
-
   //@@ invoke spmv kernel for csr format
-
-	  const unsigned int THREADS_PER_BLOCK = 512;
+  const unsigned int THREADS_PER_BLOCK = 512;
   const unsigned int numBlocks = (dim - 1) / THREADS_PER_BLOCK + 1;
-
-  printf("numblocks: %d THREADS_PER_BLOCK: %d\n",numBlocks,THREADS_PER_BLOCK);
-
- // spmvCSRKernel<<<numBlocks, THREADS_PER_BLOCK>>>(out, matCols, matRows,
-  //                                                matData, vec, dim);
-  dummy<<<numBlocks, THREADS_PER_BLOCK>>>();
-
+  spmvCSRKernel<<<numBlocks, THREADS_PER_BLOCK>>>(out, matCols, matRows,
+                                                  matData, vec, dim);
 }
 
 static void spmvJDS(float *out, int *matColStart, int *matCols,
                     int *matRowPerm, int *matRows, float *matData,
                     float *vec, int dim) {
-
   //@@ invoke spmv kernel for jds format
-
 	  const unsigned int THREADS_PER_BLOCK = 512;
   const unsigned int numBlocks = (dim - 1) / THREADS_PER_BLOCK + 1;
   spmvJDSKernel<<<numBlocks, THREADS_PER_BLOCK>>>(
       out, matColStart, matCols, matRowPerm, matRows, matData, vec, dim);
-
 }
 
 static void sort(int *data, int *key, int start, int end) {
@@ -234,7 +215,7 @@ int main(int argc, char **argv) {
     printf("CSR Multiplication\n");
   printf("#Columns: %d, #Rows: %d, #Data: %d, Dim: %d\n",ncols,nrows,ndata,dim);
 
-  printf("hostCSRRows\n");
+  /*printf("hostCSRRows\n");
   for(int n = 0; n < nrows; n++)
     printf("%d\n",hostCSRRows[n]);
   printf("hostCSRCols\n");
@@ -255,7 +236,7 @@ int main(int argc, char **argv) {
     for(int n = 0; n < dim; n++)
       printf("%.0f ",mat[m*dim+n]);
     printf("\n");
-  }
+  }*/
 
   hostOutput = (float *)malloc(sizeof(float) * dim);
 
@@ -347,8 +328,16 @@ int main(int argc, char **argv) {
     fscanf(fout,"%e\n",&hostOut[n]);
   fclose(fout);
 
+  bool res = true;
   for(int n = 0; n < dim; n++)
-    printf("%e %e\n",hostOutput[n],hostOut[n]);
+    if(hostOutput[n] != hostOut[n]){
+      printf("%e %e does not match at row %d!\n",hostOutput[n],hostOut[n],n);
+      res = false;
+    }
+  if(res)
+    printf("Result is correct!\n");
+  else
+    printf("some elements do not match\n");
 
   free(hostCSRCols);
   free(hostCSRRows);

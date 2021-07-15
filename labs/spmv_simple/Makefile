@@ -5,7 +5,7 @@ CXXFLAGS = -std=c++11 -fopenmp
 OPTFLAGS = -O3
 
 NVCC = nvcc
-NVCCFLAGS = -O3 -std=c++11 -Xcompiler -fopenmp -gencode arch=compute_70,code=sm_70 -ccbin=g++ -Xptxas="-v"
+NVCCFLAGS = -O3 -std=c++11 -Xcompiler -fopenmp -gencode arch=compute_70,code=sm_70 -ccbin=g++-8 -Xptxas="-v"
 
 LD_FLAGS = -lgomp -InvToolsExt
 
