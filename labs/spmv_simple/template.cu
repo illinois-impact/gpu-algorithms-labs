@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <chrono>
 #include <algorithm>
-#include <thrust/sort.h>
 #include <cuda.h>
 
 __global__ void dummy(){
