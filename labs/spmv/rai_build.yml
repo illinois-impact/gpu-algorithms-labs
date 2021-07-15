@@ -10,6 +10,8 @@ resources:
   cache: false
 commands:
   build:
+    - pwd
+    - /bin/bash -c "cp -rv /src/* /build"
     - make
     - ./spmv data/0/
     - ./spmv data/1/
