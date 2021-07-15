@@ -69,6 +69,7 @@ Several labs will be assigned over the course of the week
 * [Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/basic_conv)
 * [Tiled Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/tiled_conv)
 * [Triangle Counting](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/triangle_counting)
+* [SpMV](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/spmv)
 
 For most labs, the main code of is in `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
 
