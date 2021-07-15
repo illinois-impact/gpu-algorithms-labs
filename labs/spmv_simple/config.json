@@ -1,0 +1,135 @@
+{
+    "language": "CUDA",
+    "week": 4,
+    "name": "Sparse Matrix Multiplication",
+    "code_score": 1.0,
+    "questions_score": 0,
+    "compile_score": 0.0,
+    "coding_deadline": "2017-03-16T20:01:00Z",
+    "peer_review_deadline": "2017-03-16T20:01:00Z",
+    "visible": false,
+    "data": [{
+            "score": 0.1,
+            "input": [
+                "0/mode.flag",
+                "0/col.raw",
+                "0/row.raw",
+                "0/data.raw",
+                "0/vec.raw"
+            ],
+            "output": "0/output.raw",
+            "description": "Dataset 0 (CSR)"
+        },
+        {
+            "score": 0.1,
+            "input": [
+                "1/mode.flag",
+                "1/col.raw",
+                "1/row.raw",
+                "1/data.raw",
+                "1/vec.raw"
+            ],
+            "output": "1/output.raw",
+            "description": "Dataset 1 (CSR)"
+        },
+        {
+            "score": 0.1,
+            "input": [
+                "2/mode.flag",
+                "2/col.raw",
+                "2/row.raw",
+                "2/data.raw",
+                "2/vec.raw"
+            ],
+            "output": "2/output.raw",
+            "description": "Dataset 2 (CSR)"
+        },
+        {
+            "score": 0.1,
+            "input": [
+                "3/mode.flag",
+                "3/col.raw",
+                "3/row.raw",
+                "3/data.raw",
+                "3/vec.raw"
+            ],
+            "output": "3/output.raw",
+            "description": "Dataset 3 (CSR)"
+        },
+        {
+            "score": 0.1,
+            "input": [
+                "4/mode.flag",
+                "4/col.raw",
+                "4/row.raw",
+                "4/data.raw",
+                "4/vec.raw"
+            ],
+            "output": "4/output.raw",
+            "description": "Dataset 4 (CSR)"
+        },
+        {
+            "score": 0.1,
+            "input": [
+                "5/mode.flag",
+                "5/col.raw",
+                "5/row.raw",
+                "5/data.raw",
+                "5/vec.raw"
+            ],
+            "output": "5/output.raw",
+            "description": "Dataset 5 (JDS)"
+        },
+        {
+            "score": 0.1,
+            "input": [
+                "6/mode.flag",
+                "6/col.raw",
+                "6/row.raw",
+                "6/data.raw",
+                "6/vec.raw"
+            ],
+            "output": "6/output.raw",
+            "description": "Dataset 6 (JDS)"
+        },
+        {
+            "score": 0.1,
+            "input": [
+                "7/mode.flag",
+                "7/col.raw",
+                "7/row.raw",
+                "7/data.raw",
+                "7/vec.raw"
+            ],
+            "output": "7/output.raw",
+            "description": "Dataset 7 (JDS)"
+        },
+        {
+            "score": 0.1,
+            "input": [
+                "8/mode.flag",
+                "8/col.raw",
+                "8/row.raw",
+                "8/data.raw",
+                "8/vec.raw"
+            ],
+            "output": "8/output.raw",
+            "description": "Dataset 8 (JDS)"
+        },
+        {
+            "score": 0.1,
+            "input": [
+                "9/mode.flag",
+                "9/col.raw",
+                "9/row.raw",
+                "9/data.raw",
+                "9/vec.raw"
+            ],
+            "output": "9/output.raw",
+            "description": "Dataset 9 (JDS)"
+        }
+    ],
+    "input_type": "vector",
+    "output_type": "vector",
+    "coursera_code_post_key": "NONE"
+}
