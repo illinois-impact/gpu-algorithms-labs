@@ -5,13 +5,11 @@ CXXFLAGS = -std=c++11 -fopenmp
 OPTFLAGS = -O3
 
 NVCC = nvcc
-NVCCFLAGS = -O3 -std=c++11 -Xcompiler -fopenmp #-gencode arch=compute_70,code=sm_70 -ccbin=CC
+NVCCFLAGS = -O3 -std=c++11 -Xcompiler -fopenmp -gencode arch=compute_70,code=sm_70 -ccbin=g++ -Xptxas="-v"
 
 LD_FLAGS = -lgomp -InvToolsExt
 
-.PHONY: libwb
-
-TARGETS = spmv libwb
+TARGETS = spmv
 OBJECTS = template.o
 
 # ----- Make Rules -----
@@ -22,13 +20,10 @@ all:	$(TARGETS)
 	${CXX} ${CXXFLAGS} ${OPTFLAGS} $^ -c -o $@
 
 %.o : %.cu
-	${NVCC} ${NVCCFLAGS} $^ -c -o $@ -Ilibwb
+	${NVCC} ${NVCCFLAGS} $^ -c -o $@ 
 
-spmv: $(OBJECTS) libwb
-	$(NVCC) -o $@ $(OBJECTS) $(LD_FLAGS) -Llibwb/lib -lwb
-
-libwb:
-	cd libwb; make
+spmv: $(OBJECTS)
+	$(NVCC) -o $@ $(OBJECTS) $(LD_FLAGS)
 
 clean:
-	rm -f $(TARGETS) src/*.o src/*.o.* *.txt *.bin core
+	rm -f $(TARGETS) *.o *.o.* *.txt *.bin core
