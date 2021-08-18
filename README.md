@@ -1,7 +1,8 @@
-# PUMPS+AI 2021
+# ECE/CS 508 Fall 2021
 
 
-Welcome to the PUMPS+AI 2021 Summer School.
+Welcome to ECE/CS 508!
+
 This page contains information about how to access and submit the labs.
 - [Install and Setup](#install-and-setup)
     - [Windows](#windows)
