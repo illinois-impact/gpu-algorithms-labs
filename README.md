@@ -25,12 +25,12 @@ Clone this repository to get the project folder.
 
     git clone https://github.com/illinois-impact/gpu-algorithms-labs.git
 
-Download the rai binary for your platform below.
+Download the RAI binary for your platform below.
 You will probably use it for development, and definitely use it for submission.
 
-[Linux and Darwin rai binaries](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV)
+[Linux and Darwin RAI binaries](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV)
 
-In the documentation below, we refer to rai as the rai binary. Either rename your binary to rai or substitute the downloaded name when executing. When executing, you will need to include the full path to rai or add rai's location to your $PATH.
+In the documentation below, we refer to RAI as the RAI binary. Either rename your binary to rai or substitute the downloaded name when executing. When executing, you will need to include the full path to RAI or add RAI's location to your $PATH.
 
 Finally, the downloaded file will not have execute privileges. Use the 'chmod ugo+x rai' command to make the file executable.
 
@@ -47,7 +47,7 @@ Your `.rai_profile` should look something like this (indented with tabs!)
         secret_key: <your-secret-key>
         affiliation: <your-affiliation>
 
-To test the configurations, execute rai with the device_query lab. E.g. if you are in the parent directory of this repo, run:
+To test the configurations, execute RAI with the device_query lab. For example, if you are in the parent directory of this repo, run:
 
 ```bash
 rai -p ./labs/device_query
@@ -57,10 +57,11 @@ rai -p ./labs/device_query
 ****
 On Windows, you'll need to install WSL and a virtual linux OS. Several Linux versions are available
 through the Microsoft Store.
+Prof. Lumetta uses RAI on WSL (version 1)/Ubuntu.
 
 # Labs
 
-Several labs will be assigned over the course of the week
+Several labs will be assigned over the course of the semester
 
 * [Device Query](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/device_query)
 * [Scatter](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/scatter)/[Gather](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/gather) ( <- **two-part lab!!!**)
@@ -72,6 +73,8 @@ Several labs will be assigned over the course of the week
 * [Triangle Counting](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/triangle_counting)
 * [SpMV](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/spmv)
 
+The device query lab (the first one) simply tests your RAI use; no changes should be necessary--if it doesn't work, you need to debug your setup.
+
 For most labs, the main code of is in `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
 
 To run any lab you `cd` into that directory, `cd labs/device_query` for example, and run `rai -p .` .
@@ -79,7 +82,10 @@ From a user's point a view when the client runs as if it was local.
 
 # Code Development **Tools**
 
-Throughout the summer school you'll be developing the labs. The following information is common through all the labs and might be helpful while developing.
+Throughout the semester, you'll be developing the labs. The following information is common through all the labs and might be helpful while developing.
+
+We will also take a closer look at using the recent NVIDIA profiling tools,
+and I will integrate that material into the labs as the semester progresses.
 
 ## Timing the Code Sections
 
@@ -157,9 +163,13 @@ You can use the docker image and or install CMake within a CUDA envrionment. The
 ## Issues
 
 
-Please use the [Github issue manager] to report any issues or suggestions.
+Please use the [Github issue manager] to make any suggestions
+on the structure of the labs.  These will be provided for future
+semesters.  Questions and problems for this semester should be posted 
+to the discussion forum for the class.
 
-Include the outputs of
+If submitting a bug report, be sure to
+include the outputs of
 
 ```bash
 rai version
@@ -171,7 +181,7 @@ as well as the output of
 rai buildtime
 ```
 
-In your bug report. You can also invoke the `rai` command with verbose and debug outputs using
+in your report. You can also invoke the `rai` command with verbose and debug outputs using
 
 ```bash
 rai --verbose --debug
@@ -181,6 +191,6 @@ rai --verbose --debug
 
 ## License
 
-NCSA/UIUC © [Abdul Dakkak](http://impact.crhc.illinois.edu/Content_Page.aspx?student_pg=Default-dakkak)
+NCSA/UIUC © Abdul Dakkak
 
 
