@@ -1,4 +1,4 @@
-# lab: device query
+# lab: Device Query
 rai:
   version: 0.2
   image: raiproject/pumps2018:amd64-cuda100
