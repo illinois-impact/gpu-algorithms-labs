@@ -55,6 +55,10 @@ void basicSgemm(char transa, char transb, int m, int n, int k, float alpha, cons
 
     // Initialize thread block and kernel grid dimensions ---------------------
 
+    // Your code need only consider the m, n, k, A, B, and C parameters of
+    // the function, which provide the matrix sizes (m, n, k) and data
+    // (A, B, C).
+
     //INSERT CODE HERE
 
     // Invoke CUDA kernel -----------------------------------------------------
