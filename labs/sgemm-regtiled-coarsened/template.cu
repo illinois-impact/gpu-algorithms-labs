@@ -29,6 +29,11 @@ __global__ void mysgemm(int m, int n, int k, const float *A, const float *B, flo
 
   // INSERT KERNEL CODE HERE
 
+  // SSL Hint (9/6/21): try using just one register for the tile of A 
+  // rather than several--in other words, load one value (per thread) 
+  // from A and compute using that value rather than loading all values 
+  // before doing the computation.  This approach seems to be slightly 
+  // faster than the alternative.
 }
 
 void basicSgemm(char transa, char transb, int m, int n, int k, float alpha, const float *A, int lda, const float *B, int ldb, float beta, float *C, int ldc)
