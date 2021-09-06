@@ -30,7 +30,7 @@ execute until you do so.
 
 Test your code using rai
 
-<code>rai -p <path to your stencil folder></code>
+<code>rai -p \<path to your stencil folder\></code>
 
 The testing provided will execute your code with a variety 
 of input matrix dimensions.
