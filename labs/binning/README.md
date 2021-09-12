@@ -1,10 +1,19 @@
 ## Objective
 
-The purpose of this lab is to understand input binning and its impact on performance in the context of a simple computation example. The example is composed of a 1-dimensional grid of (discrete) points and an array of elements each having a non-discrete value and a non-distinct position in the grid as shown in the following figure
+The purpose of this lab is to help you understand input binning and its 
+impact on performance in the context of a simple computation example. 
+
+Your task is to compute a value for each point in a 1-dimensional grid
+of points.  Grid point coordinates are integers ranging from 0 to 
+`(grid_size - 1)`.  You are also provided with a set of input elements,
+which are located at real-valued (`float`) coordinates **within the range 
+[0,`grid_size`]**.  Each input element also has a real value (a `float`).
+The illustration below depicts the grid points and input elements.
 
 ![image](assets/fig.png "thumbnail")
 
-In this example, we would like to compute the total impact of all the input elements on each of the output elements. The total impact on a single output grid point is computed as follows:
+The value that you must compute for each grid point
+is a sum over all input elements, and is defined as follows:
 
 ![image](assets/formula.png "thumbnail")
 
