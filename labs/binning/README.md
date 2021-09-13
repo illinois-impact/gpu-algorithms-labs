@@ -17,17 +17,43 @@ is a sum over all input elements, and is defined as follows:
 
 ![image](assets/formula.png "thumbnail")
 
+where out[j] is the value computed for the grid point at coordinate j,
+the sum is over all N input elements, val[i] is the value of input
+element i, and pos[i] is the position of input element i.
+
 ## Instructions
 
-Edit the kernels incrementally in the following order: `gpu_normal_kernel`, `gpu_cutoff_kernel` and `gpu_cutoff_binned_kernel` to implement the computation with different optimization techniques on the GPU. For the `gpu_cutoff_binned_kernel` you must loop over the bins and for each bin check if either of its bounds is within the cutoff range. If yes, you must loop over the input elements in the bin, check if each element is within the cutoff range, and if yes include it in your computation. Initial tests will perform preprocessing for `gpu_cutoff_binned_kernel` on the CPU, however the last set of test will attempt preprocessing on the GPU.  You must edit the `histogram`, `scan`, and `sort` kernels to perform the preprocessing on the GPU. The number of bins has been fixed to `1024` so that `scan` operations can be performed in a single thread block.
+Implement the kernels in `main.cu` in the following order: `gpu_normal_kernel`,
+`gpu_cutoff_kernel`, and `gpu_cutoff_binned_kernel`.
+
+Be sure to read the explanatory comments about the parameters that you
+are given and the parallelization scheme (one thread per grid point/gather, 
+without coarsening).
+
+In `gpu_normal_kernel`, your code should include all input elements' effects
+on all grid points.
+
+In `gpu_cutoff_kernel`, your code should include only those input elements
+with distance from the grid point **strictly less than** the specified 
+cutoff distance (given as the square, `cutoff2`). 
+
+In `gpu_cutoff_binned_kernel`, the input elements are binned: both the
+values and positions are sorted in increasing order of position, and
+an array of bin indices (of length `(NUM_BINS + 1)`) is provided to
+define the index ranges for each bin.  Your code should **first compute the
+bins that overlap the cutoff region**, then look at all input elements within
+those bins.  Looping over all bins will not earn full credit.
+
+Initial tests perform preprocessing for `gpu_cutoff_binned_kernel` 
+on the CPU.
+
+### Binning on the GPU
+
+The last set of tests performs preprocessing on the GPU using three
+additional functions that you must write.
+
+.  You must edit the `histogram`, `scan`, and `sort` kernels to perform the preprocessing on the GPU. The number of bins has been fixed to `1024` so that `scan` operations can be performed in a single thread block.
 
 Instructions about where to place each part of the code is
 demarcated by the `//@@` comment lines.
 
-## Helper Functions
-
-### Error Checks
-
-### Timer
-
-### Verification
