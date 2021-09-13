@@ -49,6 +49,11 @@ on the CPU.
 
 ### Binning on the GPU
 
+*** You do not need to do this part of the lab for full credit.
+If you choose to do it, be warned that (1) the debugging will be more
+painful, and (2) it's probably as much or more work than the previous
+parts, but it's only worth 20% as much--as extra credit.***
+
 The last set of tests performs preprocessing on the GPU using three
 additional kernels that you must write: `histogram`, `scan`, and `sort`.
 
