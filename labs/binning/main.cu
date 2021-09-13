@@ -5,6 +5,46 @@
  GPU main computation kernels
 *******************************************************************************/
 
+//
+// parallelization scheme
+//
+// For this lab, you are not writing (nor should you modify) the kernel
+// launch code.  All three kernels are parallelized over outputs, with 
+// one thread per grid point, so use CUDA variables to obtain each 
+// thread's index.
+// 
+// Feel free to restructure things after you have passed all tests.
+// Keep in mind, however, that coarsening in 1D will cost in terms of
+// coalescing (which may matter less with newer GPUs with caches), but
+// separating a thread's grid points reduces overlap in terms of which
+// bins are needed for its grid points.  You may enjoy exploring the 
+// performance space a bit.
+//
+
+//
+// definition of inputs for kernels
+// 
+// grid_size -- number of grid points; coordinates are 0 to grid_size - 1
+// num_in    -- number of input elements
+// in_val    -- length num_in array of values of input elements
+// in_pos    -- length num_in array of values of input elements
+// out       -- length grid_size array of output values
+// cutoff2   -- square of cutoff distance for later kernels
+// in_val_sorted -- same as in_val, but with input elements sorted in 
+//                  increasing order of position
+// in_pos_sorted -- same as in_val, but with input elements sorted in 
+//                  increasing order of position
+// bin_pts       -- length (NUM_BINS + 1) array of indices into in_val_sorted
+//                  and in_pos_sorted; element N defines the starting index
+//                  for bin N, and element (N+1) defines the ending index + 1
+//                  for bin N
+//
+// constants that you will need for the binned kernel
+// NUM_BINS  -- number of bins; these split the range [0,grid_size) 
+//              into NUM_BINS equally-sized bins; all input elements fall
+//              into the specified range, and thus map into some bin
+//
+
 __global__ void gpu_normal_kernel(float *in_val, float *in_pos, float *out,
                                   int grid_size, int num_in) {
   //@@ INSERT CODE HERE
@@ -20,8 +60,8 @@ __global__ void gpu_cutoff_binned_kernel(int *bin_ptrs,
                                          float *in_val_sorted,
                                          float *in_pos_sorted, float *out,
                                          int grid_size, float cutoff2) {
+  //@@ INSERT CODE HERE
 
-//@@ INSERT CODE HERE
 }
 
 /******************************************************************************
@@ -71,6 +111,51 @@ void gpu_cutoff_binned(int *bin_ptrs, float *in_val_sorted,
 /******************************************************************************
  Preprocessing kernels
 *******************************************************************************/
+
+//
+// parallelization scheme
+//
+// Again, for the preprocessing kernels, you are not writing (nor should 
+// you modify) the kernel launch code.  
+//
+// histogram and sort use a fixed number of thread blocks of fixed size.  
+// Use these threads to iterate through the entire data set and compute
+// the number of input elements in each bin for histogram, and to sort 
+// the input elements in sort.
+//
+// scan uses one block of NUM_BINS / 2 threads; implement an exclusive
+// scan using Brent-Kung, as described in 
+// http://lumetta.web.engr.illinois.edu/408-S20/slide-copies/ece408-lecture16-S20.pdf
+// and be sure to fill in the last element of bin_pts (element NUM_BINS)
+// with the total sum of counts (should equal num_in, which may help in
+// debugging)..
+//
+
+//
+// definition of inputs for preprocessing kernels
+// 
+// grid_size -- size of coordinate space: [0, grid_size - 1) -- all input
+//              elements are within this interval
+// num_in    -- number of input elements
+// in_val    -- length num_in array of values of input elements
+// in_pos    -- length num_in array of values of input elements
+// bin_counts -- length NUM_BINS array of counts of input elements in bins
+//               (initialized to 0s, computed by histogram kernel, 
+//               then provided to sort)
+// bin_ptrs   -- length (NUM_BINS + 1) array of indices into sorted
+//               input elements (produced by scan, provided to sort)
+// in_val_sorted -- produced by sort by sorting from in_val
+// in_pos_sorted -- produced by sort by sorting from in_pos
+
+// constants that you will need for preprocessing
+// NUM_BINS  -- number of bins; these split the range [0,grid_size) 
+//              into NUM_BINS equally-sized bins; all input elements fall
+//              into the specified range, and thus map into some bin
+// 
+// N.B.  If you change the number of bins, some code may break.  In 
+// particular, your scan algorithm will need to be much more flexible
+// to handle a larger data set--simply launching another thread block
+// is not sufficient.
 
 __global__ void histogram(float *in_pos, int *bin_counts, int num_in,
                           int grid_size) {

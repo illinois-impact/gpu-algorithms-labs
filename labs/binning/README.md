@@ -50,9 +50,28 @@ on the CPU.
 ### Binning on the GPU
 
 The last set of tests performs preprocessing on the GPU using three
-additional functions that you must write.
+additional kernels that you must write: `histogram`, `scan`, and `sort`.
 
-.  You must edit the `histogram`, `scan`, and `sort` kernels to perform the preprocessing on the GPU. The number of bins has been fixed to `1024` so that `scan` operations can be performed in a single thread block.
+Be sure to read the explanatory comments about the parameters that you
+are given and the parallelization scheme for each kernel.
+
+In `histogram`, your code must compute the number of input elements in each of 
+the `NUM_BINS` bins.  Note that bins are equally sized, contiguous, 
+and together cover the interval [0, `(grid_size - 1)` ).
+The kernel is launched with a fixed number of thread blocks, so be sure
+to process input data until each block runs out (using an appropriate
+stride).
+
+In `scan`, your code must perform an exclusive parallel scan on the
+bin counts to produce an array of `(NUM_BINS + 1)` bin_ptrs.  The
+last element should be equal to the number of input elements.  You should use
+the Brent-Kung algorithm (see, for example, [lecture 16 of ECE408/CS483](http://lumetta.web.engr.illinois.edu/408-S20/slide-copies/ece408-lecture16-S20.pdf)).
+The kernel is launched with one thread block and only half as many 
+threads as bins (the right number for Brent-Kung).
+The number of bins has been fixed to `1024` so that `scan` operations can be performed in a single thread block.
+
+In `sort`, your code must sort the input elements by bin using the 
+bin indices and counts that your other kernels computed previously.
 
 Instructions about where to place each part of the code is
 demarcated by the `//@@` comment lines.
