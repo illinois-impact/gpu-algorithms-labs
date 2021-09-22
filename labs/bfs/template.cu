@@ -7,12 +7,12 @@
 #define BLOCK_SIZE 512
 
 // Maximum number of elements that can be inserted into a block queue
-#define BQ_CAPACITY 2048
+#define BQ_CAPACITY 4096
 
 // Number of warp queues per block
-#define NUM_WARP_QUEUES 16
+#define NUM_WARP_QUEUES 8
 // Maximum number of elements that can be inserted into a warp queue
-#define WQ_CAPACITY 128
+#define WQ_CAPACITY (BQ_CAPACITY / NUM_WARP_QUEUES)
 
 /******************************************************************************
  GPU kernels
