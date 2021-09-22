@@ -17,7 +17,7 @@ void cpu_queuing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
                  unsigned int *nextLevelNodes, unsigned int *numCurrLevelNodes,
                  unsigned int *numNextLevelNodes) {
 
-  // Loop over all nodes in the curent level
+  // Loop over all nodes in the current level
   for (unsigned int idx = 0; idx < *numCurrLevelNodes; ++idx) {
     unsigned int node = currLevelNodes[idx];
     // Loop over all neighbors of the node

@@ -27,7 +27,7 @@ __global__ void gpu_global_queuing_kernel(unsigned int *nodePtrs,
                                           unsigned int *numNextLevelNodes) {
 
   // INSERT KERNEL CODE HERE
-  // Loop over all nodes in the curent level
+  // Loop over all nodes in the current level
   // Loop over all neighbors of the node
   // If the neighbor hasn't been visited yet
   // Add it to the global queue
@@ -44,7 +44,7 @@ __global__ void gpu_block_queuing_kernel(unsigned int *nodePtrs,
 
   // Initialize shared memory queue
 
-  // Loop over all nodes in the curent level
+  // Loop over all nodes in the current level
   // Loop over all neighbors of the node
   // If the neighbor hasn't been visited yet
   // Add it to the block queue
@@ -69,7 +69,7 @@ __global__ void gpu_warp_queuing_kernel(unsigned int *nodePtrs,
 
   // Initialize shared memory queue
 
-  // Loop over all nodes in the curent level
+  // Loop over all nodes in the current level
   // Loop over all neighbors of the node
   // If the neighbor hasn't been visited yet
   // Add it to the warp queue
