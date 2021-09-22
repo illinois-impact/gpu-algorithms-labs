@@ -112,6 +112,10 @@ histogram.
 
     RAI executes all three of the tests above.
 
+    You may want to change `BQ_CAPACITY` to 1 (for example) to expose bugs
+    in your block queue kernel.  Please be sure to change it back to 2048 in
+    your final submission.
+
 3. Submit your code on RAI.
 
     RAI will record all of your submissions, and the last one before the

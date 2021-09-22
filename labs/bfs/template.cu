@@ -5,12 +5,12 @@
 #include "template.hu"
 
 #define BLOCK_SIZE 512
-#define WARP_SIZE 32
-#define NUM_WARPS (BLOCK_SIZE / WARP_SIZE)
 
 // Maximum number of elements that can be inserted into a block queue
 #define BQ_CAPACITY 2048
 
+// Number of warp queues per block
+#define NUM_WARP_QUEUES 16
 // Maximum number of elements that can be inserted into a warp queue
 #define WQ_CAPACITY 128
 
@@ -29,8 +29,8 @@ __global__ void gpu_global_queuing_kernel(unsigned int *nodePtrs,
   // INSERT KERNEL CODE HERE
   // Loop over all nodes in the current level
   // Loop over all neighbors of the node
-  // If the neighbor hasn't been visited yet
-  // Add it to the global queue
+  // If neighbor hasn't been visited yet
+  // Add neighbor to global queue
 }
 
 __global__ void gpu_block_queuing_kernel(unsigned int *nodePtrs,
@@ -42,15 +42,15 @@ __global__ void gpu_block_queuing_kernel(unsigned int *nodePtrs,
                                          unsigned int *numNextLevelNodes) {
   // INSERT KERNEL CODE HERE
 
-  // Initialize shared memory queue
+  // Initialize shared memory queue (size should be BQ_CAPACITY)
 
   // Loop over all nodes in the current level
   // Loop over all neighbors of the node
-  // If the neighbor hasn't been visited yet
-  // Add it to the block queue
-  // If full, add it to the global queue
+  // If neighbor hasn't been visited yet
+  // Add neighbor to block queue
+  // If full, add neighbor to global queue
 
-  // Calculate space for block queue to go into global queue
+  // Allocate space for block queue to go into global queue
 
   // Store block queue in global queue
 }
@@ -65,25 +65,28 @@ __global__ void gpu_warp_queuing_kernel(unsigned int *nodePtrs,
 
   // INSERT KERNEL CODE HERE
 
-  // This version uses one queue per warp
+  // This version uses NUM_WARP_QUEUES warp queues of capacity 
+  // WQ_CAPACITY.  Be sure to interleave them as discussed in lecture.  
 
-  // Initialize shared memory queue
+  // Don't forget that you also need a block queue of capacity BQ_CAPACITY.
+
+  // Initialize shared memory queues (warp and block)
 
   // Loop over all nodes in the current level
   // Loop over all neighbors of the node
-  // If the neighbor hasn't been visited yet
-  // Add it to the warp queue
-  // If full, add it to the block queue
-  // If full, add it to the global queue
+  // If neighbor hasn't been visited yet
+  // Add neighbor to the queue
+  // If full, add neighbor to block queue
+  // If full, add neighbor to global queue
 
-  // Calculate space for warp queue to go into block queue
+  // Allocate space for warp queue to go into block queue
 
-  // Store warp queue in block queue
-  // If full, add it to the global queue
+  // Store warp queues in block queue (use one warp or one thread per queue)
+  // Add any nodes that don't fit (remember, space was allocated above)
+  //    to the global queue
 
-  // Calculate space for block queue to go into global queue
-  // Saturate block queue counter
-  // Calculate space for global queue
+  // Saturate block queue counter (too large if warp queues overflowed)
+  // Allocate space for block queue to go into global queue
 
   // Store block queue in global queue
 }
