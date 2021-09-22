@@ -88,6 +88,17 @@ can write:
 
 The image above shows how the arrays interact together to represent how nodes are linked together.
 
+## Parallelization
+
+All three kernels are launched with a fixed number of thread blocks and
+with a fixed number of threads per block.  ***You may not modify the
+kernel launch functions.***  In order to cover the current frontier in
+its entirety, the threads in each of your three kernels must loop over 
+frontier nodes with stride `grimDim.x * blockDim.x` until reaching the
+end of the current frontier.  The approach is similar to that used in
+histogram.
+
+
 ## Procedure 
 1. Edit the file template.cu` to implement three versions of the BFS kernels: 
 
