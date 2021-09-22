@@ -1,7 +1,11 @@
 # Breadth First Search
 
 ## Objective 
-The purpose of this lab is to understand hierarchical queuing in the context of the breadth first search algorithm as an example. You will implement a single iteration of breadth first search that takes aset of nodes in the current level (also called wave-front) as input and outputs the set of nodes belonging to the next level.
+The purpose of this lab is to understand hierarchical queueing in the 
+context of the breadth first search (BFS) algorithm. You must implement a 
+single iteration of BFS that takes a set of nodes in the current level 
+(the current frontier) as input and outputs the set of nodes in the
+next frontier / level.
 
 ## Functions
 
@@ -39,6 +43,7 @@ has been visited and should not be added (or already is/will be present)
 to the frontier.  Again, you do not need to know the length of this
 array, as you may assume that any node number stored in the 
 list of a node's neighbors is a valid index into this array.
+Your code should never write anything other than 0 or 1 into this array.
 
 
 ## Input Arrays
@@ -47,7 +52,7 @@ The image below illustrates how the input arrays are used in the code:
 
 ![image](assets/bfs.png "thumbnail")
 
-## Input Informantion
+## Input Information
 
 The template code reads three input arrays:
  
@@ -72,10 +77,12 @@ lines to the code above as shown here:
     }
 
 `currLevelNodes` is the current frontier stored as an array of 
-`numCurrLevelNodes` unsigned integers.
-also an integer array, from  0  to numCurrLevelNodes, which keep track of the current frontier.  This array is the starting point of your BFS. To loop through the current frontier can bedone as follows:
+`numCurrLevelNodes` unsigned integers.  This array is the starting point 
+for your BFS. To loop sequentially through the current frontier, one
+can write:
 
-    for (unsigned int idx = 0; idx < numCurrLevelNodes; ++idx) {
+    unsigned int nCurrLevel = *numCurrLevelNodes;
+    for (unsigned int idx = 0; idx < nCurrLevel; ++idx) {
         unsigned int node = currLevelNodes[idx];
     }
 
@@ -88,10 +95,16 @@ The image above shows how the arrays interact together to represent how nodes ar
 * Edit the kernel `gpu_block_queuing_kernel` in the file to implement the algorithm using block and global queuing. Test by running ./bfs bq
 * Edit the kernel `gpu_warp_queueing_kernel` in the file to implement the algorithm using warp, block, and global queuing. Test by running ./bfs wq
 
-2. Test your code using rai
+2. Test your code using RAI.
 
     `rai -p <bfs folder>`
 
-    Be sure to add any additional flags that are required by your course (`--queue` or others).
+    RAI executes all three of the tests above.
 
-3. Submit your code on rai
+3. Submit your code on RAI.
+
+    RAI will record all of your submissions, and the last one before the
+    deadline will be graded.  To stop submitting (for example, to play
+    with other ideas or try bigger graphs), remove the "# lab" line
+    from the .yml file.  ***DO NOT*** remove the line before you have
+    finished the lab!
