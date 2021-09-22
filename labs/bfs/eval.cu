@@ -12,7 +12,7 @@ namespace gpu_algorithms_labs_evaluation {
 
 enum Mode { CPU = 1, GPU_GLOBAL_QUEUE, GPU_BLOCK_QUEUE, GPU_WARP_QUEUE };
 
-void cpu_queuing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
+void cpu_queueing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
                  unsigned int *nodeVisited, unsigned int *currLevelNodes,
                  unsigned int *nextLevelNodes, unsigned int *numCurrLevelNodes,
                  unsigned int *numNextLevelNodes) {
@@ -146,18 +146,18 @@ static int eval(const int numNodes, const int maxNeighborsPerNode, Mode mode) {
   timer_start("Performing bfs");
 
   if (mode == CPU) {
-    cpu_queuing(nodePtrs_h, nodeNeighbors_h, nodeVisited_h, currLevelNodes_h,
+    cpu_queueing(nodePtrs_h, nodeNeighbors_h, nodeVisited_h, currLevelNodes_h,
                 nextLevelNodes_h, numCurrLevelNodes_h, numNextLevelNodes_h);
   } else if (mode == GPU_GLOBAL_QUEUE) {
-    gpu_global_queuing(nodePtrs_d, nodeNeighbors_d, nodeVisited_d,
+    gpu_global_queueing(nodePtrs_d, nodeNeighbors_d, nodeVisited_d,
                        currLevelNodes_d, nextLevelNodes_d, numCurrLevelNodes_d,
                        numNextLevelNodes_d);
   } else if (mode == GPU_BLOCK_QUEUE) {
-    gpu_block_queuing(nodePtrs_d, nodeNeighbors_d, nodeVisited_d,
+    gpu_block_queueing(nodePtrs_d, nodeNeighbors_d, nodeVisited_d,
                       currLevelNodes_d, nextLevelNodes_d, numCurrLevelNodes_d,
                       numNextLevelNodes_d);
   } else if (mode == GPU_WARP_QUEUE) {
-    gpu_warp_queuing(nodePtrs_d, nodeNeighbors_d, nodeVisited_d,
+    gpu_warp_queueing(nodePtrs_d, nodeNeighbors_d, nodeVisited_d,
                      currLevelNodes_d, nextLevelNodes_d, numCurrLevelNodes_d,
                      numNextLevelNodes_d);
   } else {

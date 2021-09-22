@@ -18,7 +18,7 @@
  GPU kernels
 *******************************************************************************/
 
-__global__ void gpu_global_queuing_kernel(unsigned int *nodePtrs,
+__global__ void gpu_global_queueing_kernel(unsigned int *nodePtrs,
                                           unsigned int *nodeNeighbors,
                                           unsigned int *nodeVisited,
                                           unsigned int *currLevelNodes,
@@ -33,7 +33,7 @@ __global__ void gpu_global_queuing_kernel(unsigned int *nodePtrs,
   // Add neighbor to global queue
 }
 
-__global__ void gpu_block_queuing_kernel(unsigned int *nodePtrs,
+__global__ void gpu_block_queueing_kernel(unsigned int *nodePtrs,
                                          unsigned int *nodeNeighbors,
                                          unsigned int *nodeVisited,
                                          unsigned int *currLevelNodes,
@@ -55,7 +55,7 @@ __global__ void gpu_block_queuing_kernel(unsigned int *nodePtrs,
   // Store block queue in global queue
 }
 
-__global__ void gpu_warp_queuing_kernel(unsigned int *nodePtrs,
+__global__ void gpu_warp_queueing_kernel(unsigned int *nodePtrs,
                                         unsigned int *nodeNeighbors,
                                         unsigned int *nodeVisited,
                                         unsigned int *currLevelNodes,
@@ -96,38 +96,38 @@ __global__ void gpu_warp_queuing_kernel(unsigned int *nodePtrs,
 *******************************************************************************/
 // DON NOT MODIFY THESE FUNCTIONS!
 
-void gpu_global_queuing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
+void gpu_global_queueing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
                         unsigned int *nodeVisited, unsigned int *currLevelNodes,
                         unsigned int *nextLevelNodes,
                         unsigned int *numCurrLevelNodes,
                         unsigned int *numNextLevelNodes) {
 
   const unsigned int numBlocks = 45;
-  gpu_global_queuing_kernel << <numBlocks, BLOCK_SIZE>>>
+  gpu_global_queueing_kernel << <numBlocks, BLOCK_SIZE>>>
       (nodePtrs, nodeNeighbors, nodeVisited, currLevelNodes, nextLevelNodes,
        numCurrLevelNodes, numNextLevelNodes);
 }
 
-void gpu_block_queuing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
+void gpu_block_queueing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
                        unsigned int *nodeVisited, unsigned int *currLevelNodes,
                        unsigned int *nextLevelNodes,
                        unsigned int *numCurrLevelNodes,
                        unsigned int *numNextLevelNodes) {
 
   const unsigned int numBlocks = 45;
-  gpu_block_queuing_kernel << <numBlocks, BLOCK_SIZE>>>
+  gpu_block_queueing_kernel << <numBlocks, BLOCK_SIZE>>>
       (nodePtrs, nodeNeighbors, nodeVisited, currLevelNodes, nextLevelNodes,
        numCurrLevelNodes, numNextLevelNodes);
 }
 
-void gpu_warp_queuing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
+void gpu_warp_queueing(unsigned int *nodePtrs, unsigned int *nodeNeighbors,
                       unsigned int *nodeVisited, unsigned int *currLevelNodes,
                       unsigned int *nextLevelNodes,
                       unsigned int *numCurrLevelNodes,
                       unsigned int *numNextLevelNodes) {
 
   const unsigned int numBlocks = 45;
-  gpu_warp_queuing_kernel << <numBlocks, BLOCK_SIZE>>>
+  gpu_warp_queueing_kernel << <numBlocks, BLOCK_SIZE>>>
       (nodePtrs, nodeNeighbors, nodeVisited, currLevelNodes, nextLevelNodes,
        numCurrLevelNodes, numNextLevelNodes);
 }

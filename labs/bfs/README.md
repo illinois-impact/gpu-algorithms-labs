@@ -102,9 +102,9 @@ histogram.
 ## Procedure 
 1. Edit the file template.cu` to implement three versions of the BFS kernels: 
 
-* Edit the kernel `gpu_global_queuing_kernel` in the file to implement the algorithm using just a global queue. Test by running ./bfs gq
-* Edit the kernel `gpu_block_queuing_kernel` in the file to implement the algorithm using block and global queuing. Test by running ./bfs bq
-* Edit the kernel `gpu_warp_queueing_kernel` in the file to implement the algorithm using warp, block, and global queuing. Test by running ./bfs wq
+* Edit the kernel `gpu_global_queueing_kernel` in the file to implement the algorithm using just a global queue. Test by running ./bfs gq
+* Edit the kernel `gpu_block_queueing_kernel` in the file to implement the algorithm using block and global queueing. Test by running ./bfs bq
+* Edit the kernel `gpu_warp_queueing_kernel` in the file to implement the algorithm using warp, block, and global queueing. Test by running ./bfs wq
 
 2. Test your code using RAI.
 
