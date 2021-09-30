@@ -15,5 +15,5 @@ commands:
     - /opt/cmake/bin/cmake /src -DCMAKE_PREFIX_PATH=${PANGOLIN_INSTALL_DIR} -DGRAPH_PREFIX_PATH=\"/graphs\"
     - make
     - ./tc -c LINEAR
-    # - ./tc -a
+    - ./tc -c OTHER
 

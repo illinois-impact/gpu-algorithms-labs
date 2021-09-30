@@ -1,80 +1,134 @@
 # Triangle Counting
 
-`rai_build.yml` is set up to test ONLY the required linear search kernel.
-To enable testing of another optional kernel should you choose to write one, uncomment the line 
-```
-# - ./tc -c OTHER
-```
+In this lab, you must modify template.cu to add two versions of 
+neighbor-set-intersection-based triangle counting kernels.
+The input to the kernel is the graph represented in unweighted 
+adjacency matrix form, with directed edges based on some total ordering
+of nodes.  Edge `(i,j)` is represented by a non-zero in row `i` and 
+column `j` of the adjacency matrix.
 
-For this lab, you will modify template.cu to add a neighbor-set-intersection-based triangle counting kernel.
-The input to the kernel is the graph represented in unweighted adjacency matrix form, with directed edges based on some [total ordering](https://en.wikipedia.org/wiki/Total_order) of nodes.
-Edge `(i,j)` is represented by a non-zero in row `i` and column `j` of the adjacency matrix.
-
-Thanks to the total ordering of nodes, this forms a Directed Acyclic Graph (DAG), which lends to an efficient triangle counting approach.
-In this DAG form, we can consider edge `(B,C)` to form the base of a triangle with nodes `A`,`B`,`C` if and only if there is an edge `(B,A)`, and edge `(C,A)`. 
+Restricting edges to obey the total ordering of nodes produces a 
+Directed Acyclic Graph (DAG), which lends to an efficient triangle 
+counting approach, as discussed in lecture.  In DAG form, 
+edge `(A,B)` forms the base of a triangle with nodes `A`,`B`,`C` 
+if and only if edges `(A,C)` and `(B,C)` are also present in the graph. 
 
 ```
-   A
+   C
   ^ ^
  /   \
-B --> C
+A --> B
 ```
 
-Note that in this formulation, neither edge `(B,A)` or `(C,A)` is considered to be the base of the triangle, so we do not double- (or triple-) count any triangles.
+In this formulation, neither edge `(A,C)` nor `(B,C)` is considered to 
+be the base of a triangle, so we count each triangle exactly once.
 
-The neighbor set intersection approach is as follows.
+The graph representation used in this lab, based on the Pangolin library
+from the IMPACT group led by Prof. Wen-mei Hwu, sorts all neighbor list 
+arrays in increasing order of node number.  Given sorted neighbor lists,
+neighbor set intersection can be performed using either a linear or a
+binary search, as discussed in lecture.
 
-```
-prodecture TriCount(edge):
-  { nSrc } = neighbors(edge.src) // set of neighbors of edge source (B)
-  { nDst } = neighbors(edge.dst) // set of neighbors of edge destination (C)
-  return size(nSrc ∪ nDst)   // size of union of neighbor sets (all the different As)
-```
+# Step 1: Linear Search
 
-Your kernel can operate on an edge:
-* Determine the source and destination node for the edge
-* use the row pointer array to determine the start and end of the neighbor list in the column index array
-* determine how many elements of those two arrays are common
+Start by implementing a linear search in the `kernel_tc` kernel included
+in the file `template.cu`.
 
-Our graph representation sorts all neighbor list arrays in increasing order.
-You can use this fact to accelerate the search:
-* REQUIRED: start with a pointer to the beginning of each array, and increment whichever pointer points to a smaller value. If the two pointers are the same, then there is an element in common and both should be incremented.
-* OPTIONAL: use a binary search in one array to check for the existence of elements from the other array.
+Your kernel should parallelize over edges, and each thread should
+* determine the source and destination node for the edge,
+* use the row pointer array to determine the start and end of the neighbor list in the column index array, and
+* use a linear search (see the slides in L8) to determine how many elements of those two arrays are common.
 
-After determining the triangle count for each edge, a global reduction over edges can be performed to determine the final triangle count.
+The edge destination array does not include a padding element at the end,
+so the linear search pseudo-code given in the slides will need to be 
+modified slightly to avoid out-of-bounds accesses. 
+
+You will also need to write the kernel launch code for mode 1 in 
+`count_triangles` to execute your kernel and to perform a reduction 
+(either on the CPU or with another kernel on the GPU) over edges to 
+determine the final triangle count.  ***Be sure that your counting 
+(and reduction) kernels have finished before trying to do a
+final summation on the CPU.***
+
+Refer to the API information below for help in navigating the graph and 
+vector structures provided for your use.
+
+# Step 2: Separate the Linear Search Intersection
+
+Once your linear search passes the first set of tests (the LINEAR launch in 
+`rai_build.yml`), if you have not already done so, pull out the linear 
+search intersection into a separate function for GPU execution (use the
+`__device__` qualifier to avoid compilation on the host).  We suggest
+passing in the array of edge destinations along with the starts and ends
+of the two neighbor lists and returning the number of triangles found 
+by the intersection, but the exact interface is left to you.
+
+Be sure that your code still passes the tests.
+
+# Step 3: Add Binary Search
+
+Write a similar `__device__` function that uses binary search to find
+the nodes in one neighbor list within the second neighbor list.  
+For this function, you may choose which neighbor list to walk linearly and
+which to search, but you should then use the function correctly (so that
+the longer list is the one being searched for elements of the shorter list).
+
+Now add a second kernel similar to kernel_tc that uses your binary search
+function instead of your linear search function.  Before calling binary
+search, be sure to compare the size of the neighbor lists and swap them
+so that the lists are in the correct order (whatever that is for your
+binary search function, as discussed in the previous paragraph).
+Finally, write launch code for this kernel under mode 2 in `count_triangles`.
+
+Your code should now pass all tests, assuming that you implemented binary
+search and the new kernel launch correctly.
+
+You may want to make some notes about timing.  Binary search is likely to
+be slower than linear search.
+
+# Step 4: Choose the Right Search
+
+As you may recall from our discussion in lecture, we expect binary search 
+to be faster than linear search when the length of the shorter list is 
+less than the length of the longer list divided by the log (base 2) of the
+length of the longer list.  Play with the decision process until you find
+something that you think works well.  In my brief experiments, I found
+that I could beat both other kernels by using binary search when V was as
+least 64 and V/U was at least 6 (V is the longer list length, and U the
+shorter one).  Have fun!  (I expect to see some sort of dynamic selection
+of search based on list length in your code, but anything reasonable is ok.)
 
 ## Pangolin API reference
 
 Pangolin provides a few useful data structures.
 These structures are backed by CUDA unified memory, so you do not need to explicitly copy data between the host and device.
 
-In your kernel implementation, you can access the graph through members of the COOView object.
-This is a hybrid **C**ompressed **S**parse **R**ow / **COO**rdinate format matrix.
-It is similar to a normal CSR matrix, but agumented with a row index for each non-zero (just like how CSR has a column index for each non-zero).
-See the API reference for the COO view below. In short:
+In your kernel implementation, you can access the graph through members of 
+the Pangolin COOView object, which is
+a hybrid **C**ompressed **S**parse **R**ow / **COO**rdinate format matrix.
+The content is similar to a normal CSR matrix, but includes a row index for 
+each non-zero (just as CSR has a column index for each non-zero).
+Methods you may need include:
 
 * `num_rows()` returns the number of rows
-* `nnz()` returns the number of non-zeros
+* `nnz()` returns the number of non-zero elements (edges of the graph)
 * `row_ptr()` returns a pointer to the CSR row pointer array (length = `num_rows() + 1` or 0 if `num_rows() == 0`).
 * `col_ind()` returns a pointer to the CSR column index array (length = `nnz()`).
 * `row_ind()` returns a pointer to the CSR row index array (length = `nnz()`).
 
-This is to allow easy parallelization across all edges, or easy traversal of edges from a particular node.
+The COOView allows easy parallelization across all edges as well as easy 
+traversal of edges from a particular node.
 
-For example:
-* The source and destination of an edge are therefore `row_ind()[edgeId]` and `col_ind()[edgeId]`.
-* The outgoing edges for node `i` are `col_ind()[row_ptr()[i]]` to `col_ind()[row_ptr()[i+1]]` (non-inclusive).
+For example,
+* the source and destination of edge `edgeId` are `row_ind()[edgeId]` and `col_ind()[edgeId]`, and
+* the outgoing edges for node `i` are `col_ind()[row_ptr()[i]]` to `col_ind()[row_ptr()[i+1]]` (non-inclusive).
 
-Note that there is no way to actually access the non-zero value.
-As the graph is unweighted, the existence of a non-zero implies that the value is 1.
+As the graph is unweighted, all non-zero values in the adjacency matrix are
+equal to 1, thus there is no method to access the non-zero value for an edge.
 
-A partial [Pangolin API reference](https://zealous-heyrovsky-d34b6e.netlify.com/annotated.html) is available.
-
-| API | Link |
-|-|-|
-| COO View class | [direct link](https://zealous-heyrovsky-d34b6e.netlify.com/classcooview) |
-| Vector class | [direct link](https://zealous-heyrovsky-d34b6e.netlify.com/classpangolin_1_1vector)
-
+You will also need to create Pangolin vectors to hold your triangle counts
+(and possibly for your reduction results as well, should you choose to
+perform the reduction on the GPU).
 
 ## For Lab Developers (students can stop reading here)
 
