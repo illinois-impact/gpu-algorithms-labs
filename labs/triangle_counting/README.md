@@ -73,30 +73,33 @@ this function, you may choose which neighbor list to walk linearly and
 which to search, but you should then use the function correctly (so that
 the longer list is the one being searched for elements of the shorter list).
 
-Now add a second kernel similar to kernel_tc that uses your binary search
+Now add a second kernel similar to `kernel_tc` that uses your binary search
 function instead of your linear search function.  Before calling binary
 search, be sure to compare the size of the neighbor lists and swap them
-so that the lists are in the correct order (whatever that is for your
-binary search function, as discussed in the previous paragraph).
-Finally, write launch code for this kernel under mode 2 in `count_triangles`.
+if necessary so that the lists are in the correct order (whatever that 
+order is for your binary search function, as discussed in the previous 
+paragraph).  Finally, write launch code for this kernel under mode 2 in 
+`count_triangles`.
 
-Your code should now pass all tests, assuming that you implemented binary
-search and the new kernel launch correctly.
+Your code should now pass all tests for both launches in `rai_build.yml`, 
+assuming that you implemented binary search and the new kernel launch 
+correctly.
 
 You may want to make some notes about timing.  Binary search is likely to
-be slower than linear search.
+be slower than linear search for the sample graphs.
 
 ## Step 4: Choose the Right Search
 
 As you may recall from our discussion in lecture, we expect binary search 
-to be faster than linear search when the length of the shorter list is 
-less than the length of the longer list divided by the log (base 2) of the
+to be faster than linear search when the length of the shorter neighbor list 
+is less than the length of the longer list divided by the log (base 2) of the
 length of the longer list.  Play with the decision process until you find
 something that you think works well.  In my brief experiments, I found
-that I could beat both other kernels by using binary search when V was as
-least 64 and V/U was at least 6 (V is the longer list length, and U the
-shorter one).  Have fun!  (I expect to see some sort of dynamic selection
-of search based on list length in your code, but anything reasonable is ok.)
+that I could beat both other approaches (using solely linear or solely
+binary search) by using binary search when V was as least 64 and V/U was 
+at least 6 (V is the longer list length, and U the shorter one).  
+Have fun!  I expect to see some sort of dynamic selection
+of search based on list length in your code, but anything reasonable is ok.
 
 ## Pangolin API reference
 
@@ -130,9 +133,17 @@ You will also need to create Pangolin vectors to hold your triangle counts
 (and possibly for your reduction results as well, should you choose to
 perform the reduction on the GPU).
 
+The two methods you need for the vector are as follows:
+
+* `pangolin::Vector<ofWhatType> (size_t N, const_reference val)` is a 
+constructor--your vectors should be initialized to the correct length and
+initialized to 0 (passed as the second argument)
+* `data()` returns a pointer to an array of `ofWhatType` in CUDA unified
+memory, which can then be used on the host and passed to your kernels
+
 ## For Lab Developers (students can stop reading here)
 
-Building this lab requires an installation of the [Pangolin](github.com/c3sr/pangolin) library and some graph data files.
+Building this lab requires an installation of the [Pangolin](https://github.com/c3sr/pangolin) library and some graph data files.
 Pangolin is used to read the graph data and provide the adjacency matrix to the students.
 The lab should be configured with 
 * `-DCMAKE_PREFIX_PATH` pointing to the Pangolin install so CMake can find the package.
