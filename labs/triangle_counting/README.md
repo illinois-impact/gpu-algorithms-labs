@@ -68,8 +68,8 @@ Be sure that your code still passes the tests.
 ## Step 3: Add Binary Search
 
 Write a similar `__device__` function that uses binary search to find
-the nodes in one neighbor list within the second neighbor list.  
-For this function, you may choose which neighbor list to walk linearly and
+the nodes in one neighbor list within the second neighbor list.  For 
+this function, you may choose which neighbor list to walk linearly and
 which to search, but you should then use the function correctly (so that
 the longer list is the one being searched for elements of the shorter list).
 
