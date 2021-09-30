@@ -29,7 +29,7 @@ arrays in increasing order of node number.  Given sorted neighbor lists,
 neighbor set intersection can be performed using either a linear or a
 binary search, as discussed in lecture.
 
-# Step 1: Linear Search
+## Step 1: Linear Search
 
 Start by implementing a linear search in the `kernel_tc` kernel included
 in the file `template.cu`.
@@ -53,7 +53,7 @@ final summation on the CPU.***
 Refer to the API information below for help in navigating the graph and 
 vector structures provided for your use.
 
-# Step 2: Separate the Linear Search Intersection
+## Step 2: Separate the Linear Search Intersection
 
 Once your linear search passes the first set of tests (the LINEAR launch in 
 `rai_build.yml`), if you have not already done so, pull out the linear 
@@ -65,7 +65,7 @@ by the intersection, but the exact interface is left to you.
 
 Be sure that your code still passes the tests.
 
-# Step 3: Add Binary Search
+## Step 3: Add Binary Search
 
 Write a similar `__device__` function that uses binary search to find
 the nodes in one neighbor list within the second neighbor list.  
@@ -86,7 +86,7 @@ search and the new kernel launch correctly.
 You may want to make some notes about timing.  Binary search is likely to
 be slower than linear search.
 
-# Step 4: Choose the Right Search
+## Step 4: Choose the Right Search
 
 As you may recall from our discussion in lecture, we expect binary search 
 to be faster than linear search when the length of the shorter list is 
