@@ -183,6 +183,19 @@ static int eval(const shape wDims, const shape xDims, bool doVerify) {
 
 TEST_CASE("Convlayer", "[convlayer]") {
 #if 1
+  // test five times in case code errors depend on data
+  SECTION("[wDims:32,1,5,5 xDims:20,1,28,28]") {
+    eval({32,1,5,5}, {20,1,28,28}, true);
+  }
+  SECTION("[wDims:32,1,5,5 xDims:20,1,28,28]") {
+    eval({32,1,5,5}, {20,1,28,28}, true);
+  }
+  SECTION("[wDims:32,1,5,5 xDims:20,1,28,28]") {
+    eval({32,1,5,5}, {20,1,28,28}, true);
+  }
+  SECTION("[wDims:32,1,5,5 xDims:20,1,28,28]") {
+    eval({32,1,5,5}, {20,1,28,28}, true);
+  }
   SECTION("[wDims:32,1,5,5 xDims:20,1,28,28]") {
     eval({32,1,5,5}, {20,1,28,28}, true);
   }
