@@ -100,7 +100,7 @@ static void convlayer_gpu_opt(const float *X, const shape &xdims, const float *W
 }
 
 
-static int eval(const shape wDims, const shape xDims) {
+static int eval(const shape wDims, const shape xDims, bool doVerify) {
 
   // Generate model
   const auto conf_info = std::string("conv[wDims:") + std::to_string(wDims.num) + "," +
@@ -155,16 +155,18 @@ static int eval(const shape wDims, const shape xDims) {
   THROW_IF_ERROR(cudaDeviceSynchronize());
   timer_stop();
 
-  timer_start("Copying output to the CPU");
-  THROW_IF_ERROR(cudaMemcpy(hostY, deviceY, yByteCount, cudaMemcpyDefault));
-  timer_stop();
-
   // verify with provided implementation
-  convlayer_gpu_baseline(deviceX, xDims, deviceW, wDims, deviceY, ydims);
-  THROW_IF_ERROR(cudaDeviceSynchronize());
-  THROW_IF_ERROR(cudaMemcpy(expected, deviceY, yByteCount, cudaMemcpyDefault));
-  // conv_forward_valid(hostX, xDims, hostW, wDims, expected, ydims);
-  verify(expected, hostY, ydims);
+  if (doVerify) {
+    timer_start("Copying output to the CPU");
+    THROW_IF_ERROR(cudaMemcpy(hostY, deviceY, yByteCount, cudaMemcpyDefault));
+    timer_stop();
+
+    convlayer_gpu_baseline(deviceX, xDims, deviceW, wDims, deviceY, ydims);
+    THROW_IF_ERROR(cudaDeviceSynchronize());
+    THROW_IF_ERROR(cudaMemcpy(expected, deviceY, yByteCount, cudaMemcpyDefault));
+    // conv_forward_valid(hostX, xDims, hostW, wDims, expected, ydims);
+    verify(expected, hostY, ydims);
+  }
 
   THROW_IF_ERROR(cudaFree(deviceW));
   THROW_IF_ERROR(cudaFree(deviceX));
@@ -180,17 +182,13 @@ static int eval(const shape wDims, const shape xDims) {
 
 
 TEST_CASE("Convlayer", "[convlayer]") {
-  SECTION("[wDims:0,0,0,0 xDims:100,1,32,32]") {
-    eval({0,0,0,0}, {100,1,32,32});
+#if 1
+  SECTION("[wDims:32,1,5,5 xDims:20,1,28,28]") {
+    eval({32,1,5,5}, {20,1,28,28}, true);
   }
-  SECTION("[wDims:1,1,1,1 xDims:100,1,32,32]") {
-    eval({1,1,1,1}, {100,1,32,32});
+#else
+  SECTION("[wDims:32,1,5,5 xDims:50000,1,28,28]") {
+    eval({32,1,5,5}, {50000,1,28,28}, false);
   }
-  SECTION("[wDims:32,1,5,5 xDims:1000,1,28,28]") {
-    eval({32,1,5,5}, {1000,1,28,28});
-  }
-  SECTION("[wDims:16,1,3,3 xDims:100,1,32,32]") {
-    eval({16,1,3,3}, {100,1,32,32});
-  }
-
+#endif
 }
