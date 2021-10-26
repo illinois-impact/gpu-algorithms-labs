@@ -46,7 +46,7 @@ version of the kernel.
 By default, `rai_build.yml` builds and runs all three kernels 
 and checks the results against the reference solution.  The last
 set of tests uses the extra credit kernel (`gpu_circular_buffer_merge`), 
-so you can earn full points without passing those tests.  (As always,
+so you can earn full points without passing those tests.  As always,
 of course, your code will be examined for bugs that do not show up in 
-the tests.)
+the tests.
 
