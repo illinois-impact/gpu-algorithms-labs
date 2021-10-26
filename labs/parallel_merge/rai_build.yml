@@ -14,5 +14,4 @@ commands:
     - cp -r /src .
     - cmake /src
     - make
-    - ./merge required
-    # - ./merge
+    - ./merge
