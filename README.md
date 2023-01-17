@@ -28,7 +28,7 @@ Clone this repository to get the project folder.
 Download the RAI binary for your platform below.
 You will probably use it for development, and definitely use it for submission.
 
-[Test](https://drive.google.com/file/d/1t6-uPgbCxi5zx0FKKG15nanXt7NX8zCP/view?usp=sharing)
+[RAI Binaries](https://drive.google.com/drive/u/1/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV)
 
 [Linux and Darwin RAI binaries](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV)
 
