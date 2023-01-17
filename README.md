@@ -30,8 +30,6 @@ You will probably use it for development, and definitely use it for submission.
 
 [RAI Binaries](https://drive.google.com/drive/u/1/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV)
 
-[Linux and Darwin RAI binaries](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV)
-
 In the documentation below, we refer to RAI as the RAI binary. Either rename your binary to rai or substitute the downloaded name when executing. When executing, you will need to include the full path to RAI or add RAI's location to your $PATH.
 
 Finally, the downloaded file will not have execute privileges. Use the 'chmod ugo+x rai' command to make the file executable.
