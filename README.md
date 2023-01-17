@@ -28,6 +28,8 @@ Clone this repository to get the project folder.
 Download the RAI binary for your platform below.
 You will probably use it for development, and definitely use it for submission.
 
+[Test](https://drive.google.com/file/d/1t6-uPgbCxi5zx0FKKG15nanXt7NX8zCP/view?usp=sharing)
+
 [Linux and Darwin RAI binaries](https://drive.google.com/drive/folders/1Pp84x3So9OEHUwRHQVZcRP441wRsO-UV)
 
 In the documentation below, we refer to RAI as the RAI binary. Either rename your binary to rai or substitute the downloaded name when executing. When executing, you will need to include the full path to RAI or add RAI's location to your $PATH.
