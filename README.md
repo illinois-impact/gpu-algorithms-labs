@@ -1,4 +1,4 @@
-# ECE/CS 508 Fall 2021
+# ECE/CS 508 Spring 2023
 
 
 Welcome to ECE/CS 508!
