@@ -4,7 +4,7 @@
 The purpose of this lab is to practice the thread coarsening and register tiling optimization techniques using 7-point stencil as an example.
 
 ## Procedure
-1. Edit the `kernel` function in `template.cu` to implement a 7-point stencil (refer to the [lecture slides](https://bw-course.ncsa.illinois.edu/mod/resource/view.php?id=574)) with combined register tiling and x-y shared memory tiling, and thread coarsening along the z-dimension.
+1. Edit the `kernel` function in `template.cu` to implement a 7-point stencil (refer to the [lecture slides](http://lumetta.web.engr.illinois.edu/508/slides/lecture3-x4.pdf)) with combined register tiling and x-y shared memory tiling, and thread coarsening along the z-dimension.
 
     ```
     out(i, j, k) =  C0 *in(i, j, k)
