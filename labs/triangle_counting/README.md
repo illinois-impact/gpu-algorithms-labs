@@ -157,4 +157,9 @@ docker build . -t raiproject/pumps2018:triangle-counting-amd64-cuda100
 docker push raiproject/pumps2018:triangle-counting-amd64-cuda100
 ```
 
+## Enabling Dynamic Parallelism
+Please override the configurations files with the files in dynamic\_parallelism\_enabled. In the new CMakeLists.txt, make sure the following line reflect the compute capability of the device RAI uses. For example, V100 is corresponding to 7.0 and that means you don't need to make changes.
 
+```
+list(APPEND CUDA_NVCC_FLAGS -gencode arch=compute_70,code=sm_70;)
+```
