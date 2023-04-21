@@ -1,7 +1,7 @@
 # lab: Sgemm
 rai:
   version: 0.2
-  image: raiproject/pumps2018:amd64-cuda100
+  image: tonywukun/pumps2018:amd64-cuda100-nsighttest
 resources:
   cpu:
     architecture: amd64
@@ -14,4 +14,5 @@ commands:
     - cmake /src
     - make
     - ./sgemm -a
+    # - /usr/local/NVIDIA-Nsight-Compute/ncu --export "sgemm" --force-overwrite --target-processes all --kernel-name-base function --kernel-name regex:mysgemm --launch-skip-before-match 0 --section ComputeWorkloadAnalysis --section InstructionStats --section LaunchStats --section MemoryWorkloadAnalysis --section MemoryWorkloadAnalysis_Chart --section MemoryWorkloadAnalysis_Tables --section Occupancy --section SchedulerStats --section SourceCounters --section SpeedOfLight --section SpeedOfLight_HierarchicalSingleRooflineChart --section WarpStateStats --sampling-interval auto --sampling-max-passes 5 --sampling-buffer-size 33554432 --profile-from-start 1 --cache-control all --clock-control base ./sgemm -a
 

@@ -41,3 +41,6 @@ Your last RAI submission will be used for grading.  Be sure that it
 passes all tests for full points (you may still lose points for bugs
 not exposed during testing).
 
+## Use Nsight Compute to Profile Your Code
+
+Remove the `#` character in the last command in -rai_build.yml to enable profiling.  Note that you have to submit to the rai_amd64_exclusive queue by adding `--queue=rai_amd64_exclusive` to your RAI invocation.
