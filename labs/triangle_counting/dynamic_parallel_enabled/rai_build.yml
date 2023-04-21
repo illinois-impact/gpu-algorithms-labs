@@ -1,0 +1,20 @@
+# lab: Triangle Counting
+rai:
+  version: 0.2
+  image: tonywukun/pumps2018:triangle-counting-amd64-cuda100-cmake3.9test2
+resources:
+  cpu:
+    architecture: amd64
+  gpu:
+    count: 1
+  limits:
+    network: true
+commands:
+  build:
+    - cp -r /src . # ensure source code is in upload folder
+    - /root/spack/opt/spack/linux-ubuntu18.04-skylake/gcc-7.3.0/cmake-3.26.3-yuk5ln5gyf345uqiqb44jzuzaczldhz2/bin/cmake /src -DCMAKE_PREFIX_PATH=${PANGOLIN_INSTALL_DIR} -DGRAPH_PREFIX_PATH=\"/graphs\"
+    #- /root/spack/opt/spack/linux-ubuntu18.04-skylake/gcc-7.3.0/cmake-3.9.6-nsyti5bha6bunwre2xxkbw5j3aplpx7o/bin/cmake /src -DCMAKE_PREFIX_PATH=${PANGOLIN_INSTALL_DIR} -DGRAPH_PREFIX_PATH=\"/graphs\"
+    - make VERBOSE=1
+    - ./tc -c LINEAR
+    - ./tc -c OTHER
+
